@@ -1,0 +1,33 @@
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="layouts:: head"></head>
+
+
+<body>
+<nav th:replace="layouts:: nav"></nav>
+
+<div class="container">
+    <h3>Students Directory</h3>
+    <hr>
+
+    <a th:href="@{/students/new}" class="btn btn-primary btn-sm mb-3">Save New Student</a>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="aStudent : ${students}">
+            <td th:text="${aStudent.firstName}"/>
+            <td th:text="${aStudent.lastName}"/>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:fragment = "head">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+    <nav th:fragment = "nav"
+         class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">HOME LOGO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/students">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects">Projects</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+
+          Navbar text with an inline element
+        </span>
+        </div>
+    </nav>
+
+
+<table th:fragment = "studentTable" class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="aStudent : ${students}">
+        <td th:text="${aStudent.firstName}"/>
+        <td th:text="${aStudent.lastName}"/>
+    </tr>
+
+    </tbody>
+
+</table>
+
+<table th:fragment = "projectTable" class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th>Project Name</th>
+        <th>Project Stage</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="aProject : ${projects}">
+        <td th:text="${aProject.name}"/>
+        <td th:text="${aProject.stage}"/>
+    </tr>
+
+    </tbody>
+
+</table>
+
+
+
+</html>

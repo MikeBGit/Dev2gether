@@ -1,0 +1,37 @@
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="layouts:: head"></head>
+
+<body>
+
+<nav th:replace="layouts:: nav"></nav>
+<div class="container">
+
+    <form action="/projects/save" method="POST" th:object="${project}">
+        <input type="text" placeholder="Project Name" th:field="${project.name}">
+        <select th:field="${project.stage}">
+            <option th:value="NOTSTARTED"> Not Started</option>
+            <option th:value="INPROGRESS"> In Progress</option>
+            <option th:value="COMPLETED"> Completed</option>
+        </select>
+        <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
+
+<!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
+
+
+        <select th:field="*{students}" multiple="multiple">
+            <option
+                    th:each = "student : ${allStudents}"
+                    th:value = "${student.studentId}"
+                    th:text = "${student.firstName}">
+            </option>
+        </select>
+
+        <button type="submit">Create Project</button>
+    </form>
+
+
+</div>
+
+
+
+</body></html>
