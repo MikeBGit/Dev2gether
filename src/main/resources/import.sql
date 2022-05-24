@@ -1,13 +1,13 @@
 -- INSERT EMPLOYEES
-insert into student (student_id, first_name, last_name, email) values (1, 'John', 'Warton', 'warton@gmail.com');
-insert into student (student_id, first_name, last_name, email) values (2, 'Mike', 'Lanister', 'lanister@gmail.com');
-insert into student (student_id, first_name, last_name, email) values (3, 'Steve', 'Reeves', 'Reeves@gmail.com');
-insert into student (student_id, first_name, last_name, email) values (4, 'Ronald', 'Connor', 'connor@gmail.com');
-insert into student (student_id, first_name, last_name, email) values (5, 'Jim', 'Salvator', 'Sal@gmail.com');
-insert into student (student_id, first_name, last_name, email) values (6, 'Peter', 'Henley', 'henley@gmail.com');
-insert into student (student_id, first_name, last_name, email) values (7, 'Richard', 'Carson', 'carson@gmail.com');
-insert into student (student_id, first_name, last_name, email) values (8, 'Honor', 'Miles', 'miles@gmail.com');
-insert into student (student_id, first_name, last_name, email) values (9, 'Tony', 'Roggers', 'roggers@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (100, 'John', 'Warton', 'warton@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (200, 'Mike', 'Lanister', 'lanister@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (300, 'Steve', 'Reeves', 'Reeves@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (400, 'Ronald', 'Connor', 'connor@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (500, 'Jim', 'Salvator', 'Sal@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (600, 'Peter', 'Henley', 'henley@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (700, 'Richard', 'Carson', 'carson@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (800, 'Honor', 'Miles', 'miles@gmail.com');
+insert into student (student_id, first_name, last_name, email) values (900, 'Tony', 'Roggers', 'roggers@gmail.com');
 
 -- INSERT PROJECTS
 insert into project (project_id, name, stage, description) values (1000, 'Large Production Deploy', 'NOTSTARTED', 'This requires all hands on deck for the final deployment of the software into production');
