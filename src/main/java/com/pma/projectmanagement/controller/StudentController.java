@@ -20,8 +20,11 @@ public class StudentController {
 
     @GetMapping
     public String displayStudents(Model model){
+
        List<Student> students = studentRepository.findAll();
        model.addAttribute("students", students);
+
+
        return "students/list-students";
 
     }

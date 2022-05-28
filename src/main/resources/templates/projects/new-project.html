@@ -6,7 +6,7 @@
 <nav th:replace="layouts:: nav"></nav>
 <div class="container">
 
-    <form action="/projects/save" method="POST" th:object="${project}">
+    <form th:action="@{/projects/save}" method="POST" th:object="${project}">
         <input type="text" placeholder="Project Name" th:field="${project.name}">
         <select th:field="${project.stage}">
             <option th:value="NOTSTARTED"> Not Started</option>
@@ -25,6 +25,8 @@
                     th:text = "${student.firstName}">
             </option>
         </select>
+
+
 
         <button type="submit">Create Project</button>
     </form>
