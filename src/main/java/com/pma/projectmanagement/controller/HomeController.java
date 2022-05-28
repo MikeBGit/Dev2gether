@@ -22,8 +22,8 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
-    @Value("${version}")
-    private String ver;
+//    @Value("${version}")
+//    private String ver;
 
     @Autowired
     ProjectRepository projectRepository;
@@ -33,7 +33,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String displayHome(Model model) throws JsonProcessingException {
-        model.addAttribute("versionNumber", ver);
+//        model.addAttribute("versionNumber", ver);
 
        Map<String,Object> map = new HashMap<>();
 
