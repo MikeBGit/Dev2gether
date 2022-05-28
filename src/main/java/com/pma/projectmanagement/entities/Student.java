@@ -1,6 +1,7 @@
 package com.pma.projectmanagement.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-
-
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentId;
 
 //    RULES FOR DELETing on the child side. in the event something happens to the parent, these rules apply to the child
@@ -33,8 +32,7 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name="project_id")
 //            From Project, the foreign key is project_id
     )
-
-
+    @JsonIgnore // ignored for serialization in api
     private List<Project> projects;
 
 

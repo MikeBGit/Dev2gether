@@ -1,6 +1,7 @@
 package com.pma.projectmanagement.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.List;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projectId;
 
 //    mappedBy is the name found on Student
@@ -31,7 +32,7 @@ public class Project {
                 inverseJoinColumns = @JoinColumn(name="student_id")
 //            From Project, the foreign key is project_id
     )
-
+    @JsonIgnore// ignored for serialization in api
     private List<Student> students;
 
     private String name;
