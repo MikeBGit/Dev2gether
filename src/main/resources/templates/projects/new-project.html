@@ -6,7 +6,7 @@
 <nav th:replace="layouts:: nav"></nav>
 <div class="container">
 
-    <form th:action="@{/projects/save}" method="POST" th:object="${project}">
+    <form action="/projects/save" method="POST" th:object="${project}">
         <input type="text" placeholder="Project Name" th:field="${project.name}">
         <select th:field="${project.stage}">
             <option th:value="NOTSTARTED"> Not Started</option>
@@ -15,7 +15,7 @@
         </select>
         <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
 
-<!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
+        <!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
 
 
         <select th:field="*{students}" multiple="multiple">
@@ -26,7 +26,13 @@
             </option>
         </select>
 
-
+        <select th:field="*{languages}" multiple="multiple">
+            <option
+                    th:each = "language : ${allLanguages}"
+                    th:value = "${language.languageId}"
+                    th:text = "${language.languageName}">
+            </option>
+        </select>
 
         <button type="submit">Create Project</button>
     </form>

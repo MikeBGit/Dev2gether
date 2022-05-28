@@ -1,5 +1,6 @@
 package com.pma.projectmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,7 @@ public class Language {
 //            From Project, the foreign key is project_id
     )
 
-
+    @JsonIgnore
     private List<Project> projects;
 
     private String languageName;

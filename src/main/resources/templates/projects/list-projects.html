@@ -15,14 +15,21 @@
         <tr>
             <th>Project Name</th>
             <th>Project Stage</th>
+            <th>Student Participants</th>
+            <th>Language(s) Used</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="aProject : ${projects}">
             <td th:text="${aProject.name}"/>
             <td th:text="${aProject.stage}"/>
-        </tr>
 
+        <tr th:each="aStudent : ${students}">
+            <td th:text="${aStudent.name}"/>
+        </tr>
+        <tr th:each="aLanguage : ${languages}">
+            <td th:text="${aLanguage.name}"/>
+        </tr>
         </tbody>
 
     </table>

@@ -40,6 +40,16 @@ public class Project {
     private String stage; //NOT STARTED, COMPLETED, NOT STARTED
 
     private String description;
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
+            fetch = FetchType.LAZY)
+
+    @JoinTable(name="project_language",
+            joinColumns = @JoinColumn(name="project_id"),
+            inverseJoinColumns = @JoinColumn(name="language_id")
+//            From Project, the foreign key is project_id
+    )
+    @JsonIgnore
+    private List<Language> languages;
 
     public Project(String name, String stage, String description) {
     }

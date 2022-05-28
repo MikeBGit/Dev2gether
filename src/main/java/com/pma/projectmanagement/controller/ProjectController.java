@@ -1,8 +1,10 @@
 package com.pma.projectmanagement.controller;
 
 
+import com.pma.projectmanagement.dao.LanguageRepository;
 import com.pma.projectmanagement.dao.ProjectRepository;
 import com.pma.projectmanagement.dao.StudentRepository;
+import com.pma.projectmanagement.entities.Language;
 import com.pma.projectmanagement.entities.Project;
 import com.pma.projectmanagement.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class ProjectController {
     ProjectRepository projectRepository;
     @Autowired
     StudentRepository studentRepository;
+    @Autowired
+    LanguageRepository languageRepository;
 
     @GetMapping
     public String displayProjects(Model model){
@@ -36,10 +40,10 @@ public class ProjectController {
 
         Project aProject = new Project();
         List<Student> students = studentRepository.findAll();
-
+        List<Language> languages = languageRepository.findAll();
         model.addAttribute("allStudents", students);
         model.addAttribute("project", aProject);
-
+        model.addAttribute("allLanguages", languages);
         return "projects/new-project";
     }
 

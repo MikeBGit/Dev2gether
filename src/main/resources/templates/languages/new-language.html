@@ -1,0 +1,17 @@
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="layouts:: head"></head>
+
+<body>
+<nav th:replace="layouts:: nav"></nav>
+<div class="container">
+
+  <form th:action="@{/languages/save}" method="POST" th:object="${language}" >
+    <input type="text" placeholder="languageName" th:field="${language.languageName}"/>
+
+    <button type="submit">New Language</button>
+  </form>
+</div>
+
+</body>
+</html>

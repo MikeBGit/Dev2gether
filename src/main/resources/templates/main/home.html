@@ -15,14 +15,18 @@
         <h4> Projects </h4>
         <table th:replace="layouts:: projectTable"></table>
     </div>
-<!--    <div class="Students col-md-4">-->
-<!--         <h4> Student Members</h4>-->
-<!--         <table th:replace="layouts:: studentTable"></table>-->
-<!--    </div>-->
-<!--        <div class="col-md-2">-->
 
-<!--        </div>-->
+    <div class="Students col-md-6">
+         <h4> Student Members</h4>
+         <table th:replace="layouts:: studentTable"></table>
+    </div>
+        <div class="col-md-2">
 
+        </div>
+    <div class="Languages col-md-6">
+        <h4> Languages </h4>
+        <table th:replace="layouts:: languageTable"></table>
+    </div>
 
         <div class="col-md-3">
             <canvas id="myChart" height="50" width="50"></canvas>

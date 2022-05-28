@@ -1,0 +1,32 @@
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="layouts:: head"></head>
+
+
+<body>
+<nav th:replace="layouts:: nav"></nav>
+
+<div class="container">
+    <h3>Languages Directory</h3>
+    <hr>
+
+    <a th:href="@{/languages/new}" class="btn btn-primary btn-sm mb-3">Save New Language</a>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Language Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="aLanguage : ${languages}">
+            <td th:text="${aLanguage.languageName}"/>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

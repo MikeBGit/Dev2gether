@@ -28,6 +28,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/projects">Projects</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/languages">Languages</a>
+                </li>
             </ul>
             <span class="navbar-text">
 
@@ -52,6 +55,20 @@
 
     </tbody>
 
+</table>
+
+<table th:fragment = "languageTable" class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th>Language Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="aLanguage : ${languages}">
+        <td th:text="${aLanguage.languageName}"/>
+    </tr>
+
+    </tbody>
 </table>
 
 <table th:fragment = "studentProjectTable" class="table table-bordered table-striped">

@@ -3,10 +3,12 @@ package com.pma.projectmanagement.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pma.projectmanagement.dao.LanguageRepository;
 import com.pma.projectmanagement.dao.StudentRepository;
 import com.pma.projectmanagement.dao.ProjectRepository;
 import com.pma.projectmanagement.dto.ProjectStatus;
 import com.pma.projectmanagement.dto.StudentProject;
+import com.pma.projectmanagement.entities.Language;
 import com.pma.projectmanagement.entities.Student;
 import com.pma.projectmanagement.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class HomeController {
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    LanguageRepository languageRepository;
+
     @GetMapping("/")
     public String displayHome(Model model) throws JsonProcessingException {
 //        model.addAttribute("versionNumber", ver);
@@ -46,12 +51,13 @@ public class HomeController {
        List<StudentProject> studentProjects = studentRepository.studentProjects();
        model.addAttribute("studentProjectCount",studentProjects);
 
+       List<Language> languages = languageRepository.findAll();
+       model.addAttribute("languages", languages);
 
 
 
-
-        List<ProjectStatus> projectStatusCount = projectRepository.projectStatusCount();
-        model.addAttribute("projectStatusCount", projectStatusCount);
+       List<ProjectStatus> projectStatusCount = projectRepository.projectStatusCount();
+       model.addAttribute("projectStatusCount", projectStatusCount);
 
 //        Lets Convert the projectStatusCount records into JSON for use in Js
         ObjectMapper objectMapper = new ObjectMapper();
