@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:insert="layouts:: head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+  <title th:text="'Project: ' + ${project.name}"></title>
+
+  <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+  <script src="/js/product-page.js"></script>
+
+  <!--icons-->
+
+  <link rel="stylesheet" href="/css/project-page.css">
+</head>
+<body>
+
+  <main class="container">
+    <h1 th:text="${project.name}"></h1>
+
+    <h5>Description</h5>
+    <h6>Contributors</h6>
+    <h6>Repository</h6>
+    <h6>Languages</h6>
+
+
+
+
+
+
+    <p th:text="'Comment as ' + ${user.username}" class="offset-1"></p>
+    <form th:action="@{/projects/__${projectId}__/__${userId}__}" method="post" th:object="${comment}" id="comment">
+      <div class="form-group row offset-1 mb-2">
+        <textarea name="comment" th:field="${comment.content}" rows="3" class="col-11" form="comment" placeholder="Add a comment..."></textarea>
+      </div>
+      <div class="form-group row">
+        <!--    <input type="text" placeholder="Leave a comment" th:field="${comment.content}">-->
+        <button type="submit" class="btn btn-primary offset-9 col-2">Comment</button>
+      </div>
+    </form>
+
+    <section class="row">
+      <div class="col-10 offset-1">
+        <table class="table mt-3" style="width:100%">
+          <thead>
+            <tr>
+              <th scope="col" colspan="5" th:text="${comments.size()} + ' Comments'"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${comments != null}" th:each="comment : ${comments}">
+<!--              <td class="text-center align-middle" style="width:5%"><i class="bi bi-hand-thumbs-up"></i></td>-->
+
+              <td class="text-center align-middle" style="width:5%">
+                <form th:action="@{/commentUpvote/store}" method="post" th:object="${commentUpvote}" id="commentUpvote">
+                  <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}"/>
+                  <input type="hidden" id="userId" name="userId" th:value="${user.id}"/>
+                  <button class="btn">
+                    <i th:if="${upvotedComments.contains(comment.id)}" class="bi bi-hand-thumbs-up-fill w-100"></i>
+                    <i th:unless="${upvotedComments.contains(comment.id)}" class="bi bi-hand-thumbs-up w-100"></i>
+                  </button>
+                  <div th:text="${comment.numOfUpvotes}"></div>
+                </form>
+              </td>
+
+              <td class="text-center align-middle" th:text="${comment.user.username}" style="width:10%"></td>
+              <td id="comment-box" class="text-center align-middle" th:text="${comment.content}" style="width:65%"></td>
+              <td class="text-center align-middle" th:text="${#temporals.format(comment.createdTimestamp, 'dd/MM/yyyy')} + ' at ' + ${#temporals.format(comment.createdTimestamp, 'hh:mm a')}" style="width:10%"></td>
+              <!--Change static user id to dynamic -->
+              <td style="width:10%" class="text-center align-middle">
+                <a th:if="${comment.user.id == 1}" id="edit" class="btn btn-secondary btn-sm col-12 mb-1">Edit</a>
+                <a th:if="${comment.user.id == 1}" id="delete" th:href="@{/comments/delete/{commentId}(commentId=${comment.id})}" class="btn btn-danger btn-sm col-12">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

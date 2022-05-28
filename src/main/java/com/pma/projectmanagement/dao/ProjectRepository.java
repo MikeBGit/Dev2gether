@@ -2,11 +2,9 @@ package com.pma.projectmanagement.dao;
 
 
 import com.pma.projectmanagement.dto.ProjectStatus;
-import com.pma.projectmanagement.dto.StudentProject;
 import com.pma.projectmanagement.entities.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 

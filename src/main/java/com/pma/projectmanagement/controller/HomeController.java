@@ -3,14 +3,15 @@ package com.pma.projectmanagement.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pma.projectmanagement.dao.StudentRepository;
+
 import com.pma.projectmanagement.dao.ProjectRepository;
 import com.pma.projectmanagement.dto.ProjectStatus;
-import com.pma.projectmanagement.dto.StudentProject;
-import com.pma.projectmanagement.entities.Student;
+import com.pma.projectmanagement.dto.UserProject;
+
 import com.pma.projectmanagement.entities.Project;
+import com.pma.projectmanagement.entities.User;
+import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class HomeController {
     ProjectRepository projectRepository;
 
     @Autowired
-    StudentRepository studentRepository;
+    UserService userService;
 
     @GetMapping("/")
     public String displayHome(Model model) throws JsonProcessingException {
@@ -40,11 +41,11 @@ public class HomeController {
        List<Project> projects = projectRepository.findAll();
        model.addAttribute("projects", projects);
 
-       List<Student> students = studentRepository.findAll();
-       model.addAttribute("students", students);
+       List<User> users = userService.getAllUsers();
+       model.addAttribute("users", users);
 
-       List<StudentProject> studentProjects = studentRepository.studentProjects();
-       model.addAttribute("studentProjectCount",studentProjects);
+       List<UserProject> userProjects = userService.getUserProjects();
+       model.addAttribute("userProjectCount", userProjects);
 
 
 

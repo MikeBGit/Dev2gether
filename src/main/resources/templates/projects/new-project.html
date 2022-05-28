@@ -18,11 +18,11 @@
 <!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
 
 
-        <select th:field="*{students}" multiple="multiple">
+        <select th:field="*{users}" multiple="multiple">
             <option
-                    th:each = "student : ${allStudents}"
-                    th:value = "${student.studentId}"
-                    th:text = "${student.firstName}">
+                    th:each = "user : ${allUsers}"
+                    th:value = "${user.id}"
+                    th:text = "${user.firstName}">
             </option>
         </select>
 

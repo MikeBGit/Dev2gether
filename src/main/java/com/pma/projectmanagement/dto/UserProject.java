@@ -1,7 +1,7 @@
 package com.pma.projectmanagement.dto;
 
 
-public interface StudentProject {
+public interface UserProject {
 //    NEEDS get at start of every property
     public String getFirstName();
     public String getLastName();

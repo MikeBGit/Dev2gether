@@ -6,8 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,32 +25,54 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long projectId;
+    private Long id;
 
 //    mappedBy is the name found on Student
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
-    @JoinTable(name="project_student",
+    @JoinTable(name="project_user",
                 joinColumns = @JoinColumn(name="project_id"),
-                inverseJoinColumns = @JoinColumn(name="student_id")
+                inverseJoinColumns = @JoinColumn(name="user_id")
 //            From Project, the foreign key is project_id
     )
     @JsonIgnore// ignored for serialization in api
-    private List<Student> students;
+    private List<User> users;
 
     private String name;
 
     private String stage; //NOT STARTED, COMPLETED, NOT STARTED
 
+    @Lob
     private String description;
+
+    @CreationTimestamp
+    @Column(name = "created_timestamp", columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdTimestamp;
+
+    @UpdateTimestamp
+    @Column(name = "modified_timestamp", columnDefinition = "TIMESTAMP")
+    private LocalDateTime modifiedTimestamp;
+
+    @OneToMany(mappedBy = "project")
+    List<Comment> comments;
 
     public Project(String name, String stage, String description) {
     }
-    public void addStudent(Student student){
-        if(students == null) {
-            students = new ArrayList<>();
-        }
-        students.add(student);
+
+    public Project(Long id, String name, String stage, String description) {
+        this.id = id;
+        this.name = name;
+        this.stage = stage;
+        this.description = description;
     }
+
+    public void addUser(User user){
+        if(users == null) {
+            users = new ArrayList<>();
+        }
+        users.add(user);
+    }
+
+
 
 }
