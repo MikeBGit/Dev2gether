@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name ="users")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,8 +34,8 @@ public class User {
             fetch = FetchType.LAZY)
 //    Lazy loading is better for performance
 
-    @JoinTable(name="project_student",
-            joinColumns = @JoinColumn(name="student_id"),
+    @JoinTable(name="project_user",
+            joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="project_id")
 //            From Project, the foreign key is project_id
     )

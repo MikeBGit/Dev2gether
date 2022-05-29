@@ -55,8 +55,8 @@ public class CommentController {
 //  }
 
   @GetMapping("/projects/{projectId}/{userId}")
-  public String index(@PathVariable Long projectId, @PathVariable Long userId, Model model) {
-    List<Comment> comments = commentService.findByProjectIdOrderByCreatedTimestampDesc(projectId);
+  public String getNewestComments(@PathVariable Long projectId, @PathVariable Long userId, Model model) {
+    List<Comment> comments = commentService.getNewestComments(projectId);
     List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(userId).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
     model.addAttribute("comments", comments);
     model.addAttribute("commentUpvote", new CommentUpvote());
@@ -64,7 +64,32 @@ public class CommentController {
     model.addAttribute("comment", new Comment());
     model.addAttribute("project", projectService.getProject(projectId).get());
     model.addAttribute("user", userService.getUser(userId).get());
-    return "project-page";
+    return "projects/project";
+  }
+
+  @GetMapping("/projects/{projectId}/{userId}/most-helpful")
+  public String getMostHelpfulComments(@PathVariable Long projectId, @PathVariable Long userId, Model model) {
+    List<Comment> comments = commentService.getMostHelpfulComments(projectId);
+    List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(userId).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+    model.addAttribute("comments", comments);
+    model.addAttribute("commentUpvote", new CommentUpvote());
+    model.addAttribute("upvotedComments", upvotedComments);
+    model.addAttribute("comment", new Comment());
+    model.addAttribute("project", projectService.getProject(projectId).get());
+    model.addAttribute("user", userService.getUser(userId).get());
+    return "projects/project";
+  }
+  @GetMapping("/projects/{projectId}/{userId}/oldest")
+    public String getOldestComments(@PathVariable Long projectId, @PathVariable Long userId, Model model) {
+    List<Comment> comments = commentService.getOldestComments(projectId);
+    List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(userId).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+    model.addAttribute("comments", comments);
+    model.addAttribute("commentUpvote", new CommentUpvote());
+    model.addAttribute("upvotedComments", upvotedComments);
+    model.addAttribute("comment", new Comment());
+    model.addAttribute("project", projectService.getProject(projectId).get());
+    model.addAttribute("user", userService.getUser(userId).get());
+    return "projects/project";
   }
 
   @PostMapping("/projects/{projectId}/{userId}")
@@ -79,6 +104,6 @@ public class CommentController {
   @GetMapping("/comments/delete/{commentId}")
   public String delete(@PathVariable Long commentId) {
     commentService.deleteComment(commentId);
-    return "redirect:/projects/1/1";
+    return "redirect:/projects/10/10";
   }
 }

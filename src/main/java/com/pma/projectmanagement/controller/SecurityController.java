@@ -1,6 +1,4 @@
 package com.pma.projectmanagement.controller;
-
-import com.pma.projectmanagement.dao.UserAccountRepository;
 import com.pma.projectmanagement.dao.UserRepository;
 import com.pma.projectmanagement.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -20,9 +20,21 @@ public class CommentService {
     return comments;
   }
 
-  public  List<Comment> findByProjectIdOrderByCreatedTimestampDesc(Long projectId) {
+  public  List<Comment> getNewestComments(Long projectId) {
     List<Comment> comments = new ArrayList<>();
     comments.addAll(commentRepository.findByProjectIdOrderByCreatedTimestampDesc(projectId));
+    return comments;
+  }
+
+  public  List<Comment> getOldestComments(Long projectId) {
+    List<Comment> comments = new ArrayList<>();
+    comments.addAll(commentRepository.findByProjectIdOrderByCreatedTimestampAsc(projectId));
+    return comments;
+  }
+
+  public  List<Comment> getMostHelpfulComments(Long projectId) {
+    List<Comment> comments = new ArrayList<>();
+    comments.addAll(commentRepository.findByProjectIdOrderByNumOfUpvotesDesc(projectId));
     return comments;
   }
 
@@ -34,4 +46,6 @@ public class CommentService {
   public void deleteComment(long id) {
     commentRepository.deleteById(id);
   }
+
+
 }

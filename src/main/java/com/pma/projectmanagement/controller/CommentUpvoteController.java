@@ -1,27 +1,53 @@
 package com.pma.projectmanagement.controller;
 
+import com.pma.projectmanagement.entities.Comment;
 import com.pma.projectmanagement.entities.CommentUpvote;
+import com.pma.projectmanagement.service.CommentService;
 import com.pma.projectmanagement.service.CommentUpvoteService;
+import com.pma.projectmanagement.service.ProjectService;
+import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CommentUpvoteController {
 
   @Autowired
+  CommentService commentService;
+
+  @Autowired
+  ProjectService projectService;
+
+  @Autowired
+  UserService userService;
+
+
+  @Autowired
   CommentUpvoteService commentUpvoteService;
 
-  @PostMapping("commentUpvote/store")
+  @PostMapping("/projects/{projectId}/{userId}/commentUpvote/store")
   public String store(@ModelAttribute("commentUpvote") CommentUpvote commentUpvote) {
 
-    if (commentUpvoteService.getCommentUpvote(commentUpvote).isPresent()) {
+    if (commentUpvoteService.getCommentUpvote(commentUpvote).isPresent())
       commentUpvoteService.deleteCommentUpvote(commentUpvote);
-      return "redirect:/projects/1/1";
-    }
+    else
+      commentUpvoteService.addCommentUpvote(commentUpvote);
 
-    commentUpvoteService.addCommentUpvote(commentUpvote);
-    return "redirect:/projects/1/1";
+//    List<Comment> comments = commentService.findByProjectIdOrderByCreatedTimestampDesc(projectId);
+//    List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(userId).stream().map(upvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+//    model.addAttribute("comments", comments);
+////      model.addAttribute("commentUpvote", new CommentUpvote());
+//    model.addAttribute("upvotedComments", upvotedComments);
+////      model.addAttribute("comment", new Comment());
+//    model.addAttribute("project", projectService.getProject(projectId).get());
+//    model.addAttribute("user", userService.getUser(userId).get());
+    return "redirect:/projects/{projectId}/{userId}";
   }
 }
