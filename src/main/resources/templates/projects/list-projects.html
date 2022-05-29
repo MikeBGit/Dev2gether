@@ -14,30 +14,43 @@
 <header th:replace="layouts:: header"></header>
 <nav th:replace="layouts:: nav"></nav>
 
-<div class="container">
-    <h3>Projects Directory</h3>
-    <hr>
-
-    <a th:href="@{/projects/new}" class="btn btn-primary btn-sm mb-3">Save New Project</a>
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th>Project Name</th>
-            <th>Project Stage</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="aProject : ${projects}">
-            <td th:text="${aProject.name}"/>
-            <td th:text="${aProject.stage}"/>
-        </tr>
-
-        </tbody>
-
-    </table>
 
 
-</div>
+    <div class="row">
+        <div class="col-3">
+            <div sec:authorize="isAuthenticated()" th:replace="layouts:: sidebar"/>
+        </div>
+
+        <div class="col-7">
+            <h3>Projects Directory</h3>
+            <hr>
+
+            <a th:href="@{/projects/new}" class="btn btn-primary btn-sm mb-3">Save New Project</a>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Project Name</th>
+                    <th>Project Stage</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="aProject : ${projects}">
+                    <td th:text="${aProject.name}"/>
+                    <td th:text="${aProject.stage}"/>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
 
 </body>
 </html>

@@ -23,6 +23,7 @@ public class UserAccount {
     private long userId;
 
     @Column(name = "username")
+
     private String userName;
 
     private String email;
