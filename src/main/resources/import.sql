@@ -6,10 +6,10 @@ insert into user (id, first_name, last_name, email, password, username, enabled)
 
 
  -- INSERT PROJECTS
-insert into project (id, name, stage, description) values (10, 'Large Production Deploy', 'NOTSTARTED', 'This requires all hands on deck for the final deployment of the software into production');
-insert into project (id, name, stage, description) values (11, 'New Employee Budget',  'COMPLETED', 'Decide on a new employee bonus budget for the year and figureout who will be promoted');
-insert into project (id, name, stage, description) values (12, 'Office Reconstruction', 'INPROGRESS', 'The office building in Monroe has been damaged due to hurricane in the region. This needs to be reconstructed');
-insert into project (id, name, stage, description) values (13, 'Improve Intranet Security', 'INPROGRESS', 'With the recent data hack, the office security needs to be improved and proper security team needs to be hired for implementation');
+insert into project (id, name, stage, description, owner_id) values (10, 'Large Production Deploy', 'NOTSTARTED', 'This requires all hands on deck for the final deployment of the software into production', 10);
+insert into project (id, name, stage, description, owner_id) values (11, 'New Employee Budget',  'COMPLETED', 'Decide on a new employee bonus budget for the year and figureout who will be promoted', 10);
+insert into project (id, name, stage, description, owner_id) values (12, 'Office Reconstruction', 'INPROGRESS', 'The office building in Monroe has been damaged due to hurricane in the region. This needs to be reconstructed', 10);
+insert into project (id, name, stage, description, owner_id) values (13, 'Improve Intranet Security', 'INPROGRESS', 'With the recent data hack, the office security needs to be improved and proper security team needs to be hired for implementation', 10);
 
 -- INSERT PROJECT_EMPLOYEE_RELATION (Removed duplicates from video)
 --insert into project_user (user_id, project_id) values (1,1000);

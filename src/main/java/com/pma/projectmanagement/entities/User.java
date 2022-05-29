@@ -34,7 +34,7 @@ public class User {
             fetch = FetchType.LAZY)
 //    Lazy loading is better for performance
 
-    @JoinTable(name="collaborated_project",
+    @JoinTable(name="project_user",
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="project_id")
 //            From Project, the foreign key is project_id

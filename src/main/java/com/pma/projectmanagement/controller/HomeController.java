@@ -47,26 +47,25 @@ public class HomeController {
        List<UserProject> userProjects = userService.getUserProjects();
        model.addAttribute("userProjectCount", userProjects);
 
-
-
-
-
         List<ProjectStatus> projectStatusCount = projectRepository.projectStatusCount();
         model.addAttribute("projectStatusCount", projectStatusCount);
 
 //        Lets Convert the projectStatusCount records into JSON for use in Js
         ObjectMapper objectMapper = new ObjectMapper();
-
-
-
-
         String jsonString =  objectMapper.writeValueAsString(projectStatusCount);
         model.addAttribute("projectStatusCount_CHART_DATA" , jsonString);
-
-
-
-
-
        return "main/home";
     }
+  @GetMapping("/services")
+  public String displayServices(Model model){
+
+    return "main/services";
+
+  }
+  @GetMapping("/about")
+  public String displayAbout(Model model){
+
+    return "main/about";
+
+  }
 }
