@@ -44,14 +44,13 @@
             <li sec:authorize="!isAuthenticated()" class="nav-item"><a th:href="@{/register}" class="nav-link link-dark px-2">Sign up</a></li>
             <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/dashboard}" class="nav-link link-dark px-2">Dashboard</a></li>
             <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/logout}" class="nav-link link-dark px-2">Log out</a></li>
-
         </ul>
     </div>
 </nav>
 <!-- NAV -->
 
 <!-- SIDEBAR -->
-<div class="fluid-container row" id="backgroundDash">
+<div th:fragment = "sidebar" class="fluid-container row" id="backgroundDash">
     <!-- SIDEBAR -->
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark text-center align-items-center" style="width: 280px;">
         <span class="fs-1 text-info fw-bolder justify-content-center text-center">Dashboard</span>
@@ -117,6 +116,7 @@
         </ul>
         <hr>
     </div>
+</div>
 <!-- SIDEBAR -->
 
 <table th:fragment = "studentTable" class="table table-bordered table-striped">

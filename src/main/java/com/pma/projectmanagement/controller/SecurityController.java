@@ -58,7 +58,7 @@ public class SecurityController {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/login?logout";
+        return "security/logout";
     }
 
     @GetMapping("/dashboard")
