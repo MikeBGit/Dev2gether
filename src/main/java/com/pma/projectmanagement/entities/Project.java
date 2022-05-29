@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +31,17 @@ public class Project {
 //    mappedBy is the name found on Student
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
-    @JoinTable(name="project_user",
+    @JoinTable(name="collaborated_project",
                 joinColumns = @JoinColumn(name="project_id"),
                 inverseJoinColumns = @JoinColumn(name="user_id")
 //            From Project, the foreign key is project_id
     )
     @JsonIgnore// ignored for serialization in api
-    private List<User> users;
+    private List<User> collaborators;
+
+    @ManyToOne
+    @JoinColumn(name="owner_id", nullable = false)
+    private User projectOwner;
 
     private String name;
 
@@ -66,11 +71,11 @@ public class Project {
         this.description = description;
     }
 
-    public void addUser(User user){
-        if(users == null) {
-            users = new ArrayList<>();
+    public void addCollaborator(User user){
+        if(collaborators == null) {
+            collaborators = new ArrayList<>();
         }
-        users.add(user);
+        collaborators.add(user);
     }
 
 
