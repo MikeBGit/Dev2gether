@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <!--    <link rel="stylesheet" th:href="@{css/formatting.css}"/>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+    <style>
+        .dark-heading{
+            color: rgba(0, 0, 0, 0.8);
+        }
+        .courier{
+            font-family: 'Courier New', Courier, monospace;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        #indexImg {
+            border-radius: 200px;
+            border: 10px solid black;
+            background-color: black;
+        }
+        #bottomHalf {
+            background-color: rgba(0, 0, 0, 0.5);;
+        }
+
+        #backgroundDash {
+            background:linear-gradient(0deg, rgba(255, 00, 55, 0.1), rgba(225, 255, 255, 0.1));
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height:100%;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="layouts:: header"></header>
+<nav th:replace="layouts:: nav"></nav>
+<div class="fluid-container row" id="backgroundDash">
+    <div th:replace="layouts:: sidebar"></div>
+
+<!--    PROJECTS LIST-->
+    <div class = "row col-9 justify-content-center">
+        <div class="col-12 row pt-3">
+            <h1 class="col-auto text-dark">Welcome Back: </h1> <h1 class="col-auto" sec:authentication="name"/>
+        </div>
+        <div class = "row col-12">
+            <h1 class="display-3 text-info fw-bolder mt-3">Projects:</h1>
+            <div class="col-12 row p-3">
+                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>
+            </div>
+            <div class="col-12 row p-3">
+                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>
+            </div>
+            <div class="col-12 row p-3">
+                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>
+            </div>
+        </div>
+    </div>
+<!--    PROJECTS LIST-->
+
+
+</div>
+</body>
+</html>

@@ -35,13 +35,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                .passwordEncoder(bCryptEncoder);
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/projects/new").hasAuthority("ADMIN")
                 .antMatchers("/projects/save").hasAuthority("ADMIN")
-                .antMatchers("/", "/**").permitAll().and().formLogin();
+                .antMatchers("/", "/**").permitAll().and().formLogin()
+                .loginPage("/login");
+    }
+
+
+    //CREATE TEMP USERS LOCALLY -TESTING
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("user").password(bCryptEncoder.encode("password")).roles("USER")
+                .and()
+                .withUser("admin").password(bCryptEncoder.encode("admin")).roles("ADMIN");
     }
 
 }
