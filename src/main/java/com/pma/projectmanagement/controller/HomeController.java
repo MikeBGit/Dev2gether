@@ -48,8 +48,6 @@ public class HomeController {
 
 
 
-
-
         List<ProjectStatus> projectStatusCount = projectRepository.projectStatusCount();
         model.addAttribute("projectStatusCount", projectStatusCount);
 

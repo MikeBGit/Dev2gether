@@ -27,4 +27,6 @@ public class StudentApiController {
     public Student create(@RequestBody Student student){
         return studentRepository.save(student) ;
     }
+
+
 }

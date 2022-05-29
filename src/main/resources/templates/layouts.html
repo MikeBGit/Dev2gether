@@ -91,20 +91,20 @@
 </table>
 
 
-<!--<table th:fragment = "projectStatusCount" class="table table-bordered table-striped">-->
-<!--    <thead class="thead-dark">-->
-<!--    <tr>-->
-<!--        <th>Stage</th>-->
-<!--        <th>Count</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr th:each="proStatusCount : ${projectsStatuses}">-->
-<!--        <td th:text="${proStatusCount.stage}"/>-->
-<!--        <td th:text="${proStatusCount.projectStatusCount}"/>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
+<table th:fragment = "projectStatusCount" class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th>Stage</th>
+        <th>Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="proStatusCount : ${projectsStatuses}">
+        <td th:text="${proStatusCount.stage}"/>
+        <td th:text="${proStatusCount.projectStatusCount}"/>
+    </tr>
+    </tbody>
+</table>
 
 
 
