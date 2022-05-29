@@ -89,9 +89,7 @@
     </tbody>
 
 </table>
-
-
-<table th:fragment = "projectStatusCount" class="table table-bordered table-striped">
+<table th:fragment = "stageCounts" class="table table-bordered table-striped">
     <thead class="thead-dark">
     <tr>
         <th>Stage</th>
@@ -99,9 +97,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="proStatusCount : ${projectsStatuses}">
-        <td th:text="${proStatusCount.stage}"/>
-        <td th:text="${proStatusCount.projectStatusCount}"/>
+    <tr th:each="stageCount : ${CountedStages}">
+        <td th:text="${stageCount.label}"/>
+        <td th:text="${stageCount.value}"/>
     </tr>
     </tbody>
 </table>

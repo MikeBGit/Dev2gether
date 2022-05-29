@@ -47,21 +47,15 @@ public class HomeController {
        model.addAttribute("studentProjectCount",studentProjects);
 
 
-
-        List<ProjectStatus> projectStatusCount = projectRepository.projectStatusCount();
-        model.addAttribute("projectStatusCount", projectStatusCount);
+        List<ProjectStatus> stageCounts = projectRepository.projectStatusCount();
+        model.addAttribute("CountedStages", stageCounts);
 
 //        Lets Convert the projectStatusCount records into JSON for use in Js
         ObjectMapper objectMapper = new ObjectMapper();
 
 
-
-
-        String jsonString =  objectMapper.writeValueAsString(projectStatusCount);
+        String jsonString =  objectMapper.writeValueAsString(stageCounts);
         model.addAttribute("projectStatusCount_CHART_DATA" , jsonString);
-
-
-
 
 
        return "main/home";

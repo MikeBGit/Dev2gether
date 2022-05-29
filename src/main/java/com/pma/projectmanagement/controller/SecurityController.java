@@ -1,8 +1,8 @@
 package com.pma.projectmanagement.controller;
 
-import com.pma.projectmanagement.dao.UserAccountRepository;
-import com.pma.projectmanagement.entities.UserAccount;
-import org.apache.catalina.User;
+import com.pma.projectmanagement.dao.StudentRepository;
+import com.pma.projectmanagement.entities.Student;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,27 +17,25 @@ public class SecurityController {
     BCryptPasswordEncoder bCryptEncoder;
 
     @Autowired
-    UserAccountRepository userAccountRepository;
+    StudentRepository studentRepository;
 
     @GetMapping("/register")
     public String register(Model model){
 
-        UserAccount userAccount = new UserAccount();
-
-        model.addAttribute("userAccount", userAccount);
-
+        Student student = new Student();
+        model.addAttribute("studentReg", student);
         return "security/register";
+
     }
 
     @PostMapping("/register/save")
-    public String saveUSer(Model model, UserAccount user){
+    public String registerStudent(Model model, Student student){
 
-        user.setPassword(bCryptEncoder.encode(user.getPassword()));
-
-        userAccountRepository.save(user);
-
+        student.setPassword(bCryptEncoder.encode(student.getPassword()));
+        studentRepository.save(student);
         return "redirect:/";
 
-
     }
+
+
 }
