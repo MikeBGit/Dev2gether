@@ -4,6 +4,7 @@ package com.pma.projectmanagement.controller;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.RequestDispatcher;
@@ -30,8 +31,6 @@ public class AppErrorController implements ErrorController {
             }
         }
 
-
-
         return "error/error";
     }
 
@@ -39,6 +38,5 @@ public class AppErrorController implements ErrorController {
     public String getErrorPath(){
         return "/error";
     }
-
 
 }
