@@ -27,7 +27,7 @@ public class Comment {
   @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private User user;
 

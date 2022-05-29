@@ -56,8 +56,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy="projectOwner")
     private List<Project> postedProjects;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    private Comment comment;
+//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+//    private Comment comment;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Comment> comments;
 
     @ManyToMany
     private List<Comment> upvotedComments;

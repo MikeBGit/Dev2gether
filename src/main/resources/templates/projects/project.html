@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,14 +41,11 @@
 
 
     <section class="row">
-      <h1 th:text="${project.name}" class="text-center display-3 mt-4 mb-5"></h1>
+      <h1 th:text="${project.name}" class="text-center display-3 my-4"></h1>
       <div class="col-9">
 
         <h5 class="display-6">Description</h5>
         <p th:text="${project.description}"></p>
-        <section class="row my-5">
-          <h5 class="display-6">Contributors</h5>
-        </section>
         <section class="row my-5">
           <div class="col-6 border-start border-2 ps-3 py-2">
             <h5 class="display-7">Languages</h5>
@@ -66,18 +63,17 @@
 
       </div>
       <div class="col-3">
-        <div class="mb-3 row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword">
-          </div>
-        </div>
+        <section class="row mt-2 mb-5">
+          <h5 class="display-7">Project Owner</h5>
+          <p class="lead" th:text="${project.projectOwner.firstName} + ' ' + ${project.projectOwner.lastName}"></p>
+        </section>
+        <section class="row mb-5">
+          <h5 class="display-7">Contributors</h5>
+        </section>
+        <section class="row">
+          <h5 class="display-7">Last Modified</h5>
+          <p th:text="${project.modifiedTimestamp}"></p>
+        </section>
       </div>
 
     </section>
