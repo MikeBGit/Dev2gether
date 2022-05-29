@@ -6,8 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -16,15 +20,22 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String username;
+
+    @NotEmpty(message = "First name cannot be empty.")
     private String firstName;
+
+    @NotEmpty(message = "Last name cannot be empty.")
     private String lastName;
+
+    @Pattern(regexp = "^[a-zA-Z\\d+_.-]+@johnabbottcollege.net$", message = "Please sign up using your John Abbott College email address (example@johnabbottcollege.net).")
     private String email;
+
+    @Size(min=8, message = "Password must be at least 8 characters long.")
     private String password;
     private String role;
     private boolean enabled = true;
@@ -51,13 +62,37 @@ public class User {
     @ManyToMany
     private List<Comment> upvotedComments;
 
-    public User(Long id, String username, String firstName, String lastName, String email, String password, String role, boolean enabled) {
+    public User(Long id, String firstName, String lastName, String email, String password, String role, boolean enabled) {
         this.id = id;
-        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 }

@@ -1,12 +1,13 @@
 <html xmlns:th="http://thymeleaf.org">
-<head th:replace="layouts:: head"></head>
+<!--<head th:replace="layouts:: head"></head>-->
 
 <body>
 
 <nav th:replace="layouts:: nav"></nav>
 <div class="container">
-
+<!--    <div th:text="${#authentication.getPrincipal().getFirstName()}"></div>-->
     <form th:action="@{/projects/save}" method="POST" th:object="${project}">
+<!--        <input type="hidden" th:value = "${user.id}" th:field="${project.ownerId}">-->
         <input type="text" placeholder="Project Name" th:field="${project.name}">
         <select th:field="${project.stage}">
             <option th:value="NOTSTARTED"> Not Started</option>
@@ -18,9 +19,9 @@
 <!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
 
 
-        <select th:field="*{users}" multiple="multiple">
+        <select th:field="*{collaborators}" multiple="multiple">
             <option
-                    th:each = "user : ${allUsers}"
+                    th:each = "user : ${users}"
                     th:value = "${user.id}"
                     th:text = "${user.firstName}">
             </option>

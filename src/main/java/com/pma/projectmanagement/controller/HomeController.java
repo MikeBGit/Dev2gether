@@ -56,10 +56,10 @@ public class HomeController {
         model.addAttribute("projectStatusCount_CHART_DATA" , jsonString);
        return "main/home";
     }
-  @GetMapping("/services")
+  @GetMapping("/how")
   public String displayServices(Model model){
 
-    return "main/services";
+    return "main/how";
 
   }
   @GetMapping("/about")

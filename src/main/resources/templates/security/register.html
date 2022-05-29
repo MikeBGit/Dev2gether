@@ -17,13 +17,14 @@
 
 <!--<br class="p-5">-->
 <main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center">
-    <form autocomplete="off" th:action="@{/register/save}" th:object="${user}" method="post" class="form-signin" role="form">
+    <form autocomplete="off" th:action="@{/register}" th:object="${user}" method="post" class="form-signin" role="form">
         <img class="mb-4" th:src="@{images/signupIcon.png}" alt="" width="72" height="65">
         <h3 class="form-signin-heading h3 mb-3 fw-normal text-white">Registration Form</h3>
 
         <div class="form-floating m-2">
-            <input type="text" th:field="*{username}" placeholder="User Name" class="form-control" id="Uname" name="Uname"/>
-            <label for="Uname">Firstname</label>
+            <input type="text" th:field="*{email}" placeholder="example@johnabbottcollege.net" class="form-control" id="email" name="email"/>
+            <label for="email">Email</label>
+            <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" class="text-danger" th:errors="*{email}"></p>
         </div>
 
         <!--            DOB-->
@@ -34,13 +35,23 @@
         <!--            DOB-->
 
         <div class="form-floating m-2">
-            <input type="text" th:field="*{email}" placeholder="Email" class="form-control" id="email" name="email"/>
-            <label for="email">Email address</label>
+            <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control" id="firstName" name="firstName"/>
+            <label for="firstName">First Name</label>
+            <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" class="text-danger" th:errors="*{firstName}"></p>
+
+        </div>
+        <div class="form-floating m-2">
+            <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" id="lastName" name="lastName"/>
+            <label for="lastName">Last Name</label>
+            <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" class="text-danger" th:errors="*{lastName}"></p>
+
 
         </div>
         <div class="form-floating m-2">
             <input type="password" th:field="*{password}" placeholder="Password" class="form-control" id="password" name="password"/>
             <label for="password">Password</label>
+            <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" class="text-danger" th:errors="*{password}"></p>
+
         </div>
 
         <!--            CHECKBOX-->

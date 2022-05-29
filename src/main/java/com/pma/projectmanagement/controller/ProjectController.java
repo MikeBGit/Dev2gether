@@ -35,7 +35,7 @@ public class ProjectController {
         Project project = new Project();
         List<User> users = userService.getAllUsers();
 
-        model.addAttribute("allUsers", users);
+        model.addAttribute("users", users);
         model.addAttribute("project", project);
 
         return "projects/new-project";

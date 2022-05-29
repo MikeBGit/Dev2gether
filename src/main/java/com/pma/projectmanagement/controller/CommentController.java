@@ -96,7 +96,7 @@ public class CommentController {
   public String store(@Valid @ModelAttribute("comment") Comment comment, @PathVariable Long projectId, @PathVariable Long userId, BindingResult result) {
     comment.setProject(new Project(projectId, "", "", ""));
 
-    comment.setUser(new User(userId, "", "", "", "", "", "", true));
+    comment.setUser(new User(userId, "", "", "", "", "", true));
     commentService.addComment(comment);
     return "redirect:/projects/{projectId}/{userId}";
   }
