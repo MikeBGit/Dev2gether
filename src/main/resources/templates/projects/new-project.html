@@ -7,7 +7,7 @@
 <!--<div class="container">-->
 <!--&lt;!&ndash;    <div th:text="${#authentication.getPrincipal().getFirstName()}"></div>&ndash;&gt;-->
 <!--    <form th:action="@{/projects/save}" method="POST" th:object="${project}">-->
-<!--&lt;!&ndash;        <input type="hidden" th:value = "${user.id}" th:field="${project.ownerId}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="hidden" th:value = "${user.html.id}" th:field="${project.ownerId}">&ndash;&gt;-->
 <!--        <input type="text" placeholder="Project Name" th:field="${project.name}">-->
 <!--        <select th:field="${project.stage}">-->
 <!--            <option th:value="NOTSTARTED"> Not Started</option>-->
@@ -21,9 +21,9 @@
 
 <!--        <select th:field="*{collaborators}" multiple="multiple">-->
 <!--            <option-->
-<!--                    th:each = "user : ${users}"-->
-<!--                    th:value = "${user.id}"-->
-<!--                    th:text = "${user.firstName}">-->
+<!--                    th:each = "user.html : ${users}"-->
+<!--                    th:value = "${user.html.id}"-->
+<!--                    th:text = "${user.html.firstName}">-->
 <!--            </option>-->
 <!--        </select>-->
 
@@ -80,13 +80,13 @@
     <!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
 
     <!--        <select th:field="*{collaborators}" multiple="multiple">-->
-    <!--            <li th:each="user: ${users}">-->
+    <!--            <li th:each="user.html: ${users}">-->
     <!--    &lt;!&ndash;            <input type="checkbox"  th:value="${student.studentId}" />&ndash;&gt;-->
     <!--                <div class="input-group mb-3">-->
     <!--                    <div class="input-group-text">-->
-    <!--                        <input class="form-check-input mt-0" type="checkbox" th:value="${user.id}" aria-label="Select the students that are part of the project" th:field="*{collaborators}">-->
+    <!--                        <input class="form-check-input mt-0" type="checkbox" th:value="${user.html.id}" aria-label="Select the students that are part of the project" th:field="*{collaborators}">-->
     <!--                    </div>-->
-    <!--                    <label th:text="${user.firstName} ${user.lastName}"/>-->
+    <!--                    <label th:text="${user.html.firstName} ${user.html.lastName}"/>-->
     <!--                </div>-->
     <!--            </li>-->
 

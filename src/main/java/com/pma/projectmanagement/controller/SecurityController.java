@@ -37,13 +37,13 @@ public class SecurityController {
 
         User user = new User();
 
-        model.addAttribute("user", user);
+        model.addAttribute("user.html", user);
 
         return "security/register";
     }
 
     @PostMapping("/register")
-    public String saveUSer(Model model, @Valid @ModelAttribute("user") User user, BindingResult result){
+    public String saveUSer(Model model, @Valid @ModelAttribute("user.html") User user, BindingResult result){
 
         if (result.hasErrors()) {
             return "security/register";
@@ -53,7 +53,7 @@ public class SecurityController {
 
         userRepository.save(user);
 
-        return "redirect:/dashboard";
+        return "redirect:/login";
 
 
     }

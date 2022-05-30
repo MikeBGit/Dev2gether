@@ -4,10 +4,7 @@ import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,7 +27,6 @@ public class UserController {
     model.addAttribute("users", users);
 
     return "users/list-users";
-
   }
 
   @GetMapping("/new")
@@ -43,6 +39,12 @@ public class UserController {
   public String newUser(User user, Model model){
     userService.addUser(user);
     return "redirect:new";
+  }
+
+  @GetMapping("/{id}")
+  public String displayUser(@PathVariable Long id, Model model){
+    model.addAttribute("user", userService.getUser(id).get());
+    return "users/user";
   }
 
 }

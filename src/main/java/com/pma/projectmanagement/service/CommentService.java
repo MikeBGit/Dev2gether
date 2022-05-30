@@ -38,7 +38,7 @@ public class CommentService {
     return comments;
   }
 
-  public  List<Comment> getMostHelpfulComments(Long projectId) {
+  public  List<Comment> getMostLikedComments(Long projectId) {
     List<Comment> comments = new ArrayList<>();
     comments.addAll(commentRepository.findByProjectIdOrderByNumOfUpvotesDesc(projectId));
     return comments;
