@@ -23,7 +23,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findByProjectOwner(User user);
 
 
-    @Query(nativeQuery=true, value ="SELECT * FROM project p WHERE p.stage = :status and p.owner_id = :name")
-    List<Project> findProjectsByStatus(@Param("status") String stage,
-                                         @Param("name") Long owner);
+    @Query(nativeQuery=true, value ="SELECT * FROM project p WHERE p.state LIKE :status and p.owner_id = :owner")
+    List<Project> findProjectsByStatus(@Param("status") String state,
+                                         @Param("owner") Long owner);
 }

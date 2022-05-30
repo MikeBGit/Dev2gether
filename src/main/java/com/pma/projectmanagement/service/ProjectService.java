@@ -44,5 +44,11 @@ public class ProjectService {
     return projects;
   }
 
-}
+  public List<Project> getAllByStatus(String str, Long id) {
+    List<Project> projects = new ArrayList<>();
+    projects.addAll(projectRepository.findProjectsByStatus(str, id));
+    return projects;
+  }
 
+
+}

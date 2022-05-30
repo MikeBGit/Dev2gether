@@ -41,6 +41,39 @@ public class ProjectController {
         return "projects/list-projects";
     }
 
+    @GetMapping("/NYS")
+    public String NYS(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).orElse(null);
+        List<Project> projects = projectService.getAllByStatus("NOTYETSTARTED", user.getId());
+        model.addAttribute("user", user);
+
+        model.addAttribute("projects", projects);
+        return "projects/list-projects";
+    }
+
+    @GetMapping("/inProgress")
+    public String InProgress(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).orElse(null);
+        List<Project> projects = projectService.getAllByStatus("INPROGRESS", user.getId());
+        model.addAttribute("user", user);
+
+        model.addAttribute("projects", projects);
+        return "projects/list-projects";
+    }
+
+    @GetMapping("/completed")
+    public String completed(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).orElse(null);
+        List<Project> projects = projectService.getAllByStatus("COMPLETED",user.getId());
+        model.addAttribute("user", user);
+
+        model.addAttribute("projects", projects);
+        return "projects/list-projects";
+    }
+
     @GetMapping("/new")
     public String displayProjectForm(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
