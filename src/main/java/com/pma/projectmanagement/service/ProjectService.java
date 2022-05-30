@@ -2,6 +2,7 @@ package com.pma.projectmanagement.service;
 
 import com.pma.projectmanagement.dao.ProjectRepository;
 import com.pma.projectmanagement.entities.Project;
+import com.pma.projectmanagement.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,12 @@ public class ProjectService {
 
   public void deleteProject(long id) {
     projectRepository.deleteById(id);
+  }
+
+  public List<Project> getProjectsByProjectOwner(User user) {
+    List<Project> projects = new ArrayList<>();
+    projects.addAll(projectRepository.findByProjectOwner(user));
+    return projects;
   }
 
 }

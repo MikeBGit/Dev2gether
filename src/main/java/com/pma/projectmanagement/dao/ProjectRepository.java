@@ -3,6 +3,7 @@ package com.pma.projectmanagement.dao;
 
 import com.pma.projectmanagement.dto.ProjectStatus;
 import com.pma.projectmanagement.entities.Project;
+import com.pma.projectmanagement.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,4 +18,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 //    HERES WHERE THE DTO COMES IN AS TYPE
     List<ProjectStatus> projectStatusCount();
+
+    List<Project> findByProjectOwner(User user);
 }

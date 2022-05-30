@@ -1,6 +1,8 @@
 package com.pma.projectmanagement.controller;
 import com.pma.projectmanagement.dao.UserRepository;
 import com.pma.projectmanagement.entities.User;
+import com.pma.projectmanagement.service.ProjectService;
+import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,10 +21,16 @@ import javax.validation.Valid;
 public class SecurityController {
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     BCryptPasswordEncoder bCryptEncoder;
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ProjectService projectService;
 
     @GetMapping("/register")
     public String register(Model model){
@@ -65,7 +73,13 @@ public class SecurityController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).get();
+        model.addAttribute(user);
+
+        model.addAttribute("projects", projectService.getProjectsByProjectOwner(user));
+
         return "security/dashboard";
     }
 }

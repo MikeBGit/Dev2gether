@@ -74,15 +74,16 @@
         <div class="row justify-content-center">
             <div class="row col-12 text-center m-2 col-md-4">
                 <!-- <h3 class="text-decoration-underline text-white">Cards</h3> -->
-                <div class="bg-light text-center">
+                <div class="rounded bg-opacity-75 bg-light text-center">
                     <h5 class="pt-2 pb-2 text-primary">What do others think<br> of Dev2gether.com</h5>
                     <div class="row col-12">
                         <div class="row col-4 ms-3">
                             <img th:src="@{images/girl.png}" class="rounded-circle" alt="code" width="25" height="75">
                         </div>
                         <div class="row col-8">
-                            <h6 class="text-danger fw-bold">Ashley Jackson</h6>
+<!--                            <h6 class="text-danger fw-bold">Ashley Jackson</h6>-->
                             <p>This helped me get a job at google. Thank you Dev2gether</p>
+                            <footer class="blockquote-footer text-danger">Ashley Jackson</footer>
                         </div>
                     </div>
                     <div class="row col-12">
@@ -90,15 +91,16 @@
                             <img th:src="@{images/boy.png}" class="rounded-circle" alt="code" width="25" height="75">
                         </div>
                         <div class="row col-8">
-                            <h6 class="text-danger fw-bold">Michael James</h6>
+<!--                            <h6 class="text-danger fw-bold">Michael James</h6>-->
                             <p>Dev2gether.com made me a better programmer</p>
+                            <footer class="blockquote-footer text-danger">Michael James</footer>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="row col-12 text-center m-2 col-md-4">
-                <div class="bg-light text-center">
+                <div class="rounded bg-opacity-75 bg-light text-center">
                     <h5 class="pt-2 pb-2 text-primary">Current Projects</h5>
                     <div class="container m-2 border-opacity-25">
                         <table th:replace="layouts:: projectTable"></table>
@@ -107,7 +109,7 @@
             </div>
 
             <div class="row col-12 text-center m-2 col-md-4">
-                <div class="bg-light text-center">
+                <div class="rounded bg-light text-center bg-opacity-75">
                     <h5 class="pt-2 pb-2 text-primary">Project Status Chart</h5>
                     <canvas id="myChart" height="50" width="50"></canvas>
                     <script>

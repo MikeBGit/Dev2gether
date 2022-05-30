@@ -44,22 +44,35 @@
     <div th:replace="layouts:: sidebar"></div>
 
 <!--    PROJECTS LIST-->
-    <div class = "row col-9 justify-content-center">
-        <div class="col-12 row pt-3">
-            <h1 class="col-auto text-dark">Welcome Back: </h1> <h1 class="col-auto" sec:authentication="name"/>
+    <div class = "col-9 justify-content-center">
+        <div class=" row pt-3">
+            <h1 class="col-auto text-dark" th:text="'Welcome back, ' + ${user.firstName} + ' ' + ${user.lastName} +'!'">Welcome Back: </h1>
         </div>
-        <div class = "row col-12">
+        <div class = "row">
             <h1 class="display-3 text-info fw-bolder mt-3">Projects:</h1>
-            <div class="col-12 row p-3">
-                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>
-            </div>
-            <div class="col-12 row p-3">
-                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>
-            </div>
-            <div class="col-12 row p-3">
-                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>
-            </div>
         </div>
+
+            <div  th:each="project : ${projects}" class="card mb-4">
+                <div class="card-header">
+                    <div class="col-9" th:text="'Posted by ' + ${project.projectOwner.firstName}"></div>
+                    <div class="col-3 text-end" th:text="${#temporals.format(project.createdTimestamp, 'dd/MM/yyyy')}"></div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${project.name}"></h5>
+                    <p class="card-text" th:text="${project.description}"></p>
+                    <a th:href="@{/projects/{projectId}(projectId=${project.id})}" class="btn btn-info">View</a>
+                </div>
+            </div>
+<!--            <div class="col-12 row p-3">-->
+<!--                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>-->
+<!--            </div>-->
+<!--            <div class="col-12 row p-3">-->
+<!--                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>-->
+<!--            </div>-->
+<!--            <div class="col-12 row p-3">-->
+<!--                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>-->
+<!--            </div>-->
+
     </div>
 <!--    PROJECTS LIST-->
 
