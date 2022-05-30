@@ -2,11 +2,14 @@ package com.pma.projectmanagement.controller;
 
 import com.pma.projectmanagement.entities.Comment;
 import com.pma.projectmanagement.entities.CommentUpvote;
+import com.pma.projectmanagement.entities.User;
 import com.pma.projectmanagement.service.CommentService;
 import com.pma.projectmanagement.service.CommentUpvoteService;
 import com.pma.projectmanagement.service.ProjectService;
 import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,7 +35,7 @@ public class CommentUpvoteController {
   @Autowired
   CommentUpvoteService commentUpvoteService;
 
-  @PostMapping("/projects/{projectId}/{userId}/commentUpvote/store")
+  @PostMapping("/projects/{projectId}/commentUpvote/store")
   public String store(@ModelAttribute("commentUpvote") CommentUpvote commentUpvote) {
 
     if (commentUpvoteService.getCommentUpvote(commentUpvote).isPresent())
@@ -48,6 +51,6 @@ public class CommentUpvoteController {
 ////      model.addAttribute("comment", new Comment());
 //    model.addAttribute("project", projectService.getProject(projectId).get());
 //    model.addAttribute("user", userService.getUser(userId).get());
-    return "redirect:/projects/{projectId}/{userId}";
+    return "redirect:/projects/{projectId}/";
   }
 }

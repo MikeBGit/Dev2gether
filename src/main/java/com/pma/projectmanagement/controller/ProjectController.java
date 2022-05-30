@@ -27,6 +27,10 @@ public class ProjectController {
 
     @GetMapping
     public String displayProjects(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).get();
+        model.addAttribute("user", user);
+
         List<Project> projects = projectService.getAllProjects();
         model.addAttribute("projects", projects);
         return "projects/list-projects";
@@ -34,6 +38,7 @@ public class ProjectController {
 
     @GetMapping("/new")
     public String displayProjectForm(Model model){
+
 
         Project project = new Project();
         List<User> users = userService.getAllUsers();
@@ -47,8 +52,7 @@ public class ProjectController {
     public String createProject(Project project, Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getUserByEmail(auth.getName()).get();
-        project.setProjectOwner(user);
+        project.setProjectOwner(userService.getUserByEmail(auth.getName()).get());
 //        This should handle the saving to the database
         projectService.addProject(project);
 

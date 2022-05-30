@@ -53,7 +53,7 @@
     <div th:fragment = "sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark text-center align-items-center" style="width: 280px;">
         <span class="fs-1 text-info fw-bolder justify-content-center text-center">Dashboard</span>
         <img th:src="@{images/loginIcon.png}" class="rounded-circle" alt="code" width="75" height="75">
-        <h5 sec:authentication="name" class="fs-5 text-danger fw-bolder justify-content-center text-center pt-3"/>
+        <h5 th:text="${user?.firstName} + ' ' + ${user?.lastName}" class="fs-5 text-danger fw-bolder justify-content-center text-center pt-3"/>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">

@@ -84,8 +84,8 @@
 
 
 
-    <p th:text="'Comment as ' + ${user.username}" class="offset-1 mt-5"></p>
-    <form th:action="@{/projects/__${projectId}__/__${userId}__}" method="post" th:object="${comment}" id="comment">
+    <p th:text="'Comment as ' + ${user.firstName} + ' ' + ${user.lastName}" class="offset-1 mt-5"></p>
+    <form th:action="@{/projects/__${projectId}__}" method="post" th:object="${comment}" id="comment">
       <div class="form-group row offset-1 mb-2">
         <textarea name="comment" th:field="${comment.content}" rows="3" class="col-11" form="comment" placeholder="Add a comment..." required></textarea>
       </div>
@@ -107,9 +107,9 @@
                     Sort By
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" th:href="@{/projects/__${projectId}__/__${userId}__/most-helpful}">Most Helpful</a></li>
-                    <li><a class="dropdown-item" th:href="@{/projects/__${projectId}__/__${userId}__}">Newest</a></li>
-                    <li><a class="dropdown-item" th:href="@{/projects/__${projectId}__/__${userId}__/oldest}">Oldest</a></li>
+                    <li><a class="dropdown-item" th:href="@{/projects/__${projectId}__/comments/most-helpful}">Most Helpful</a></li>
+                    <li><a class="dropdown-item" th:href="@{/projects/__${projectId}__}">Newest</a></li>
+                    <li><a class="dropdown-item" th:href="@{/projects/__${projectId}__/comments/oldest}">Oldest</a></li>
                   </ul>
                 </div>
               </th>
@@ -120,7 +120,7 @@
 <!--              <td class="text-center align-middle" style="width:5%"><i class="bi bi-hand-thumbs-up"></i></td>-->
 
               <td class="text-center align-middle" style="width:5%">
-                <form th:action="@{/projects/__${projectId}__/__${userId}__/commentUpvote/store}" method="post" th:object="${commentUpvote}" id="commentUpvote">
+                <form th:action="@{/projects/__${projectId}__/commentUpvote/store}" method="post" th:object="${commentUpvote}" id="commentUpvote">
                   <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}"/>
                   <input type="hidden" id="userId" name="userId" th:value="${user.id}"/>
                   <button class="btn">
