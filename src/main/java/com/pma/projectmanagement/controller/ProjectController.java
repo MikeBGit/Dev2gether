@@ -6,11 +6,14 @@ import com.pma.projectmanagement.entities.User;
 import com.pma.projectmanagement.service.ProjectService;
 import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -34,7 +37,6 @@ public class ProjectController {
 
         Project project = new Project();
         List<User> users = userService.getAllUsers();
-
         model.addAttribute("users", users);
         model.addAttribute("project", project);
 
@@ -43,6 +45,10 @@ public class ProjectController {
 
     @PostMapping("/save")
     public String createProject(Project project, Model model){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).get();
+        project.setProjectOwner(user);
 //        This should handle the saving to the database
         projectService.addProject(project);
 
