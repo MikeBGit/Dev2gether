@@ -36,7 +36,7 @@ public class Project {
 //            From Project, the foreign key is project_id
     )
     @JsonIgnore// ignored for serialization in api
-    private List<User> contributors;
+    private List<User> contributors = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="owner_id", nullable = false)
@@ -70,7 +70,7 @@ public class Project {
         this.description = description;
     }
 
-    public void addCollaborator(User user) {
+    public void addContributor(User user) {
         if(contributors == null) {
             contributors = new ArrayList<>();
         }

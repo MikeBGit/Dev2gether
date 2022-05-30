@@ -33,7 +33,7 @@
 <header th:replace="layouts:: header"></header>
 <nav th:replace="layouts:: nav"></nav>
 
-    <div class="container p-3 pt-5 row">
+    <div class="container p-3 pt-5 row " >
         <div class="col-12 col-md-6 ps-3 row justify-content-center">
             <h1 class="display-1 text-dark fw-bolder ms-3 text-center">About Us</h1>
         </div>
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="col-12 row">
+    <div class="col-12 row ">
         <h1 class="display-3 text-dark fw-bolder ms-3 text-center">Sign up today to start developing with others today!</h1>
 
         <form method="get" th:action="@{/register}" class="row mt-5 justify-content-center">
@@ -58,7 +58,8 @@
     </div>
 
 
-    <div id="bottomHalf" class="pb-5" >
+    <div id="bottomHalf" class="pb-5 " style="display: flex;
+  min-height: 100vh;">
         <hr class="pb-5">
         <div class="h-100"> </div>
     </div>

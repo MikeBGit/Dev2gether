@@ -26,8 +26,8 @@
       <input type="text"  placeholder="Project Name" class="form-control" id="projectName" name="projectName" th:field="${project.name}"/>
       <label for="projectName">Project Name</label>
     </div>
-
-    <select th:field="${project.state}" class="form-select mb-3" aria-label="select state">
+    <label for="state" class="form-label text-white">Current State</label>
+    <select id="state" th:field="${project.state}" class="form-select mb-3" aria-label="select state">
       <option selected th:value="NOTSTARTED">Not Started</option>
       <option th:value="INPROGRESS">In Progress</option>
       <option th:value="COMPLETED">Completed</option>

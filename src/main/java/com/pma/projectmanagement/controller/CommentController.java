@@ -15,10 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.model.IModel;
 
 import javax.validation.Valid;
@@ -72,6 +69,33 @@ public class CommentController {
     model.addAttribute("commentUpvote", new CommentUpvote());
     model.addAttribute("comment", new Comment());
     model.addAttribute("project", projectService.getProject(projectId).get());
+    model.addAttribute("newUser", new User());
+
+    return "projects/project";
+  }
+
+  @PostMapping("/projects/update/{projectId}")
+  public String updateProject(@PathVariable Long projectId, Model model) {
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    User user = userService.getUserByEmail(auth.getName()).orElse(null);;
+    model.addAttribute("user", user);
+
+    if (projectService.getProject(projectId).isPresent() && !projectService.getProject(projectId).get().getContributors().contains(user)) {
+      Project fetchedProject = projectService.getProject(projectId).get();
+      fetchedProject.getContributors().add(user);
+      projectService.updateProject(fetchedProject);
+    }
+
+    List<Comment> comments = commentService.getNewestComments(projectId);
+    if (user != null) {
+      List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+      model.addAttribute("upvotedComments", upvotedComments);
+    }
+    model.addAttribute("comments", comments);
+    model.addAttribute("commentUpvote", new CommentUpvote());
+    model.addAttribute("comment", new Comment());
+    model.addAttribute("project", projectService.getProject(projectId).get());
 
     return "projects/project";
   }
@@ -87,6 +111,7 @@ public class CommentController {
       List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
       model.addAttribute("upvotedComments", upvotedComments);
     }
+    model.addAttribute("newUser", new User());
     model.addAttribute("comments", comments);
     model.addAttribute("commentUpvote", new CommentUpvote());
     model.addAttribute("comment", new Comment());
@@ -106,6 +131,7 @@ public class CommentController {
       List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
       model.addAttribute("upvotedComments", upvotedComments);
     }
+    model.addAttribute("newUser", new User());
     model.addAttribute("comments", comments);
     model.addAttribute("commentUpvote", new CommentUpvote());
     model.addAttribute("comment", new Comment());

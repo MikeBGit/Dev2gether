@@ -74,14 +74,21 @@
           <h5 class="display-7">Contributors</h5>
           <ul>
             <li th:each="contributor : ${project.contributors}"><a th:href="@{'/users/' + ${contributor.id}}" th:text="${contributor.firstName} + ' ' + ${contributor.lastName}" style="text-decoration: none"></a></li>
-            <!--              <li>HTML</li>-->
-            <!--              <li>CSS</li>-->
           </ul>
         </section>
         <section class="row">
           <h5 class="display-7">Last Modified</h5>
           <p th:text="${#temporals.format(project.modifiedTimestamp, 'dd/MM/yyyy')} + ' at ' + ${#temporals.format(project.modifiedTimestamp, 'HH:mm')}"></p>
         </section>
+        <section class="row">
+          <form th:if="${user.id != project.projectOwner.id}" th:action="@{'/projects/update/' + ${project.id}}" method="post">
+<!--            <input type="hidden" name="_method" value="delete">-->
+<!--            <input type="hidden" name="_method" value="put">-->
+<!--            <input type="hidden" id="contributors" name="contributors" th:field="${newUser.id}" th:value="${user.id}"/>-->
+            <button class="btn btn-success">Contribute</button>
+          </form>
+        </section>
+
       </div>
 
     </section>
@@ -167,5 +174,7 @@
 <!--          src="https://code.jquery.com/jquery-3.6.0.min.js"-->
 <!--          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="-->
 <!--          crossorigin="anonymous"></script>-->
+    </div>
+  </div>
 </body>
 </html>
