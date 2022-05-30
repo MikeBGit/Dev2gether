@@ -56,30 +56,29 @@
         <h5 th:text="${user?.firstName} + ' ' + ${user?.lastName}" class="fs-5 text-danger fw-bolder justify-content-center text-center pt-3"/>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
+<!--            UPDATE PROFILE-->
             <li class="nav-item">
-                <a href="#" class="nav-link text-primary fw-bolder">
+                <a th:href="@{users/update}" class="nav-link text-primary fw-bolder">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                     Update Profile
                 </a>
             </li>
+
+<!--            VIEW PROFILE-->
             <li>
                 <a href="#" class="nav-link text-primary fw-bolder">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                     View Profile
                 </a>
             </li>
-            <li>
-                <a href="#" class="nav-link text-white fw-bolder">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                    Notifications(3)
-                </a>
-            </li>
+
             <li>
                 <a th:href="@{/projects/new}" class="nav-link text-danger fw-bolder">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                     Create a New Project
                 </a>
             </li>
+
             <li>
                 <a href="#" class="nav-link text-white fw-bolder">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
