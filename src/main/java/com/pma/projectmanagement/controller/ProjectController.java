@@ -45,7 +45,7 @@ public class ProjectController {
     public String NYS(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByEmail(auth.getName()).orElse(null);
-        List<Project> projects = projectService.getAllByStatus("NOTYETSTARTED", user.getId());
+        List<Project> projects = projectService.getAllByStatus("NOTSTARTED", user.getId());
         model.addAttribute("user", user);
 
         model.addAttribute("projects", projects);

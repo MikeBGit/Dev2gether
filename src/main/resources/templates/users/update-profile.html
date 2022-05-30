@@ -16,10 +16,10 @@
 <nav th:replace="layouts:: nav"></nav>
 
 <!--<br class="p-5">-->
-<main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center">
+<main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center" style="display:flex; min-height: 100vh;">
     <form autocomplete="off" th:action="@{/users/update-save}" th:object="${userDetails}" method="post" class="form-signin">
 
-        <img class="mb-4" th:src="@{images/signupIcon.png}" alt="" width="72" height="65">
+        <img class="mb-4" th:src="@{/images/dashIcon.png}" alt="" width="72" height="65">
         <h3 class="form-signin-heading h3 mb-3 fw-normal text-white">Update Form</h3>
 
         <!--           DOB-->
@@ -56,7 +56,7 @@
                    name="${_csrf.parameterName}"
                    value="${_csrf.token}"/>
 
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Sign Up</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
         </div>
         <!-- <span th:utext="${successMessage}"></span> -->
 
