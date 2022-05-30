@@ -25,33 +25,22 @@
             <input type="text" th:field="*{email}" placeholder="example@johnabbottcollege.net" class="form-control" id="email" name="email"/>
             <label for="email">Email</label>
             <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" class="text-danger" th:errors="*{email}"></p>
+            <p th:if="${emailErrorMsg != null}" th:text="${emailErrorMsg}" class="text-danger"></p>
         </div>
-
-        <!--            DOB-->
-<!--        <div class="form-floating m-2">-->
-<!--            <input type="date" class="form-control" placeholder="date of birth" id="DOB" name="DOB">-->
-<!--            <label for="DOB">Date Of Birth</label>-->
-<!--        </div>-->
-        <!--            DOB-->
-
         <div class="form-floating m-2">
             <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control" id="firstName" name="firstName"/>
             <label for="firstName">First Name</label>
             <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" class="text-danger" th:errors="*{firstName}"></p>
-
         </div>
         <div class="form-floating m-2">
             <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" id="lastName" name="lastName"/>
             <label for="lastName">Last Name</label>
             <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" class="text-danger" th:errors="*{lastName}"></p>
-
-
         </div>
         <div class="form-floating m-2">
             <input type="password" th:field="*{password}" placeholder="Password" class="form-control" id="password" name="password"/>
             <label for="password">Password</label>
             <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" class="text-danger" th:errors="*{password}"></p>
-
         </div>
 
         <!--            CHECKBOX-->

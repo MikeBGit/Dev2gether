@@ -32,6 +32,7 @@ public class User implements UserDetails {
     @NotEmpty(message = "Last name cannot be empty.")
     private String lastName;
 
+    @Column(unique = true, name ="email")
     @Pattern(regexp = "^[a-zA-Z\\d+_.-]+@johnabbottcollege.net$", message = "Please sign up using your John Abbott College email address (example@johnabbottcollege.net).")
     private String email;
 

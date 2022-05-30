@@ -45,9 +45,17 @@ public class SecurityController {
     @PostMapping("/register")
     public String saveUSer(Model model, @Valid @ModelAttribute("user") User user, BindingResult result){
 
-        if (result.hasErrors()) {
+        if (result.hasErrors() || userService.getUserByEmail(user.getEmail()).isPresent()) {
+            if (userService.getUserByEmail(user.getEmail()).isPresent()) {
+                model.addAttribute("emailErrorMsg", "Email address already in use.");
+            }
             return "security/register";
         }
+
+//        if (userService.getUserByEmail(user.getEmail()).isPresent()) {
+//            model.addAttribute("emailErrorMsg", "Email address already in use.");
+//            return "security/register";
+//        }
 
         user.setPassword(bCryptEncoder.encode(user.getPassword()));
 
