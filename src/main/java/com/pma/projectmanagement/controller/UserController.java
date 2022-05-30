@@ -1,5 +1,7 @@
 package com.pma.projectmanagement.controller;
 import com.pma.projectmanagement.entities.User;
+
+import com.pma.projectmanagement.exception.RecordNotFoundException;
 import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -54,6 +56,40 @@ public class UserController {
     User user = userService.getUserByEmail(auth.getName()).orElse(null);
     model.addAttribute("user", user);
     return "users/user";
+  }
+
+  @GetMapping("/update")
+  public String updateForm( Model model) throws RecordNotFoundException {
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    User user = userService.getUserByEmail(auth.getName()).orElse(null);
+
+    model.addAttribute("userDetails", user);
+    return "users/update-profile";
+  }
+
+
+  @PostMapping(path="/update-save")
+  public String partialUpdate(User patchUser){
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    User user = userService.getUserByEmail(auth.getName()).orElse(null);
+//
+
+    if(patchUser.getFirstName() != null){
+//            If the requestbody has a firstName, set new email.
+      user.setFirstName(patchUser.getFirstName());
+    }
+//
+    if(patchUser.getLastName() != null){
+//            If the requestbody has a lastName, set new email.
+      user.setLastName(patchUser.getLastName());
+    }
+
+    userService.updateUser(user);
+
+    return "redirect:/dashboard";
+
   }
 
 }
