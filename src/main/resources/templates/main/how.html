@@ -55,7 +55,7 @@
     <div class="col-12 row">
         <h1 class="display-3 text-dark fw-bolder ms-3 text-center">Sign up today to start developing today.</h1>
 
-        <form method="get" action="signup.html" class="row mt-5 justify-content-center">
+        <form method="get" th:action="@{/register}" class="row mt-5 justify-content-center">
             <div class="pb-3 col-4">
                 <input type="email" class="form-control" id="SignUpSmall" placeholder="email">
             </div>
@@ -66,7 +66,7 @@
     </div>
 
 
-    <div id="bottomHalf" class="pb-5">
+    <div id="bottomHalf" class="pb-5" style="display: flex; min-height: 100vh;">
         <hr class="">
 
     </div>

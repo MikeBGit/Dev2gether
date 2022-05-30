@@ -17,7 +17,8 @@
 <nav th:replace="layouts:: nav"></nav>
 
 <!--<br class="p-5">-->
-<main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center d-flex flex-column ">
+<main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center d-flex flex-column " style="display: flex;
+  min-height: 100vh;">
     <form autocomplete="off" th:action="@{/register}" th:object="${user}" method="post" class="form-signin" role="form">
         <img class="mb-4" th:src="@{images/signupIcon.png}" alt="" width="72" height="65">
         <h3 class="form-signin-heading h3 mb-3 fw-normal text-white">Registration Form</h3>

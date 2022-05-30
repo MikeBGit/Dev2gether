@@ -16,7 +16,8 @@
 <nav th:replace="layouts:: nav"></nav>
 
 <!--<br class="p-5">-->
-<main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center">
+<main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center" style="display: flex;
+  min-height: 100vh;">
   <form autocomplete="off" th:action="@{/projects/save}" method="POST" th:object="${project}" class="form" role="form">
     <img class="mb-4" th:src="@{/images/createProject.png}" alt="" width="72" height="65">
     <h3 class="form-signin-heading h3 mb-3 fw-normal text-white">Create New Project</h3>
@@ -82,7 +83,7 @@
     </div>
     <!-- <span th:utext="${successMessage}"></span> -->
 
-    <p class="mt-5 mb-3 text-white">Â© 2022 - Dev2gether.com</p>
+    <p class="mt-5 mb-3 text-white">© 2022 - Dev2gether.com</p>
   </form>
 </main>
 

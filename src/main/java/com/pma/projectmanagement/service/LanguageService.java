@@ -21,4 +21,13 @@ public class LanguageService {
         return languages;
     }
     public void addLanguage(Language language) {languageRepository.save(language);}
+
+//    public void addInitialLanguages() {
+//        List <Language>  languages= new ArrayList<>();
+//        languages.add();
+//        languageRepository.save(languages);
+//
+//    }
+
+
 }

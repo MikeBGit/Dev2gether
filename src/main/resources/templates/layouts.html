@@ -41,6 +41,7 @@
         <ul class="nav">
             <li sec:authorize="!isAuthenticated()" class="nav-item"><a th:href="@{/login}" class="nav-link link-dark px-2">Login</a></li>
             <li sec:authorize="!isAuthenticated()" class="nav-item"><a th:href="@{/register}" class="nav-link link-dark px-2">Sign up</a></li>
+            <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/progress}" class="nav-link link-warning px-2">What we learned</a></li>
             <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/dashboard}" class="nav-link link-dark px-2">Dashboard</a></li>
             <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/logout}" class="nav-link link-dark px-2">Log out</a></li>
         </ul>
@@ -83,30 +84,30 @@
             <li>
                 <a href="#" class="nav-link text-white fw-bolder">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                    Open Projects(3)
+                    Projects To Start
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-link text-white fw-bolder">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                    New Projects(2)
+                    Projects In Progress
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-link text-white fw-bolder">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                    Archived Projects(5)
+                    Completed Projects
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white fw-bolder">
+                <a th:href="@{/dashboard}" class="nav-link text-white fw-bolder">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                     View All Projects(8)
                 </a>
             </li>
             <hr>
             <li>
-                <a th:href="@{/dashboard}" class="nav-link text-danger fw-bolder pt-3">
+                <a th:href="@{/logout}" class="nav-link text-danger fw-bolder pt-3">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                     Sign Out
                 </a>
