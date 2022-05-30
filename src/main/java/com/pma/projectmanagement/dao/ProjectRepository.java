@@ -6,6 +6,7 @@ import com.pma.projectmanagement.entities.Project;
 import com.pma.projectmanagement.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -20,4 +21,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<ProjectStatus> projectStatusCount();
 
     List<Project> findByProjectOwner(User user);
+
+
+    @Query(nativeQuery=true, value ="SELECT * FROM project p WHERE p.stage = :status and p.owner_id = :name")
+    List<Project> findProjectsByStatus(@Param("status") String stage,
+                                         @Param("name") Long owner);
 }

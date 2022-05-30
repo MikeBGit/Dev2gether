@@ -1,46 +1,5 @@
-<!--<html xmlns:th="http://thymeleaf.org">-->
-<!--&lt;!&ndash;<head th:replace="layouts:: head"></head>&ndash;&gt;-->
-
-<!--<body>-->
-
-<!--<nav th:replace="layouts:: nav"></nav>-->
-<!--<div class="container">-->
-<!--&lt;!&ndash;    <div th:text="${#authentication.getPrincipal().getFirstName()}"></div>&ndash;&gt;-->
-<!--    <form th:action="@{/projects/save}" method="POST" th:object="${project}">-->
-<!--&lt;!&ndash;        <input type="hidden" th:value = "${user.id}" th:field="${project.ownerId}">&ndash;&gt;-->
-<!--        <input type="text" placeholder="Project Name" th:field="${project.name}">-->
-<!--        <select th:field="${project.stage}">-->
-<!--            <option th:value="NOTSTARTED"> Not Started</option>-->
-<!--            <option th:value="INPROGRESS"> In Progress</option>-->
-<!--            <option th:value="COMPLETED"> Completed</option>-->
-<!--        </select>-->
-<!--        <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>-->
-
-<!--&lt;!&ndash;        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand&ndash;&gt;-->
-
-
-<!--        <select th:field="*{collaborators}" multiple="multiple">-->
-<!--            <option-->
-<!--                    th:each = "user : ${users}"-->
-<!--                    th:value = "${user.id}"-->
-<!--                    th:text = "${user.firstName}">-->
-<!--            </option>-->
-<!--        </select>-->
-
-
-
-<!--        <button type="submit">Create Project</button>-->
-<!--    </form>-->
-
-
-<!--</div>-->
-
-
-
-<!--</body></html>-->
-
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <title>Dev2gether - Create New Project</title>
   <!-- link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" /-->
@@ -51,7 +10,7 @@
 </head>
 
 <body  class="text-center h-100 row align-items-center d-flex justify-content-center"
-       th:style="'background: linear-gradient(0deg, rgba(0, 0, 55, 0.5), rgba(0, 0, 0, 0.6)), url(images/loginBackground.jpg); min-height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;'">
+       th:style="'background: linear-gradient(0deg, rgba(0, 0, 55, 0.5), rgba(0, 0, 0, 0.6)), url(/images/loginBackground.jpg); min-height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;'">
 
 <header th:replace="layouts:: header"></header>
 <nav th:replace="layouts:: nav"></nav>
@@ -59,7 +18,7 @@
 <!--<br class="p-5">-->
 <main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center">
   <form autocomplete="off" th:action="@{/projects/save}" method="POST" th:object="${project}" class="form" role="form">
-    <img class="mb-4" th:src="@{images/loginIcon.png}" alt="" width="72" height="65">
+    <img class="mb-4" th:src="@{/images/createProject.png}" alt="" width="72" height="65">
     <h3 class="form-signin-heading h3 mb-3 fw-normal text-white">Create New Project</h3>
 
     <div class="form-floating mb-3">

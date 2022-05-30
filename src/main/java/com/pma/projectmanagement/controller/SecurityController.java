@@ -53,9 +53,13 @@ public class SecurityController {
 
         userRepository.save(user);
 
-        return "redirect:/dashboard";
+        return "redirect:/success";
+    }
 
-
+    //MAYBE ADD A GATEWAY OF SORTS SO ONLY people who signed up can see it.
+    @GetMapping("/success")
+    public String success() {
+        return "security/success";
     }
 
     @GetMapping("/login")
