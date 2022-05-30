@@ -44,7 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/projects/new").authenticated()
 //                .antMatchers("/dashboard").hasAuthority("USER")
                 .antMatchers("/", "/**").permitAll().and().formLogin()
-                .loginPage("/login");
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard",true);
     }
 
 }

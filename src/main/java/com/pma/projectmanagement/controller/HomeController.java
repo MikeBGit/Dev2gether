@@ -68,4 +68,11 @@ public class HomeController {
     return "main/about";
 
   }
+
+    @GetMapping("/progress")
+    public String displayLearning(Model model){
+
+        return "main/progress";
+
+    }
 }
