@@ -54,9 +54,7 @@
           <div class="col-6 border-start border-2 ps-3 py-2">
             <h5 class="display-7">Languages</h5>
             <ul>
-              <li th:each="comment : ${comments}" th:text="${comment.content}"></li>
-<!--              <li>HTML</li>-->
-<!--              <li>CSS</li>-->
+              <li th:each="language : ${project.languages}" th:text="${language.name}"></li>
             </ul>
           </div>
           <div class="col-6 border-start border-2 ps-3 py-2">

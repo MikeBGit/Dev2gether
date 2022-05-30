@@ -3,6 +3,7 @@ import com.pma.projectmanagement.entities.CommentUpvote;
 import com.pma.projectmanagement.entities.Project;
 
 import com.pma.projectmanagement.entities.User;
+import com.pma.projectmanagement.service.LanguageService;
 import com.pma.projectmanagement.service.ProjectService;
 import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class ProjectController {
     ProjectService projectService;
     @Autowired
     UserService userService;
+
+    @Autowired
+    LanguageService languageService;
 
     @GetMapping
     public String displayProjects(Model model){
@@ -47,6 +51,7 @@ public class ProjectController {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         model.addAttribute("project", project);
+        model.addAttribute("languages", languageService.getAllLanguages());
 
         return "projects/new-project";
     }

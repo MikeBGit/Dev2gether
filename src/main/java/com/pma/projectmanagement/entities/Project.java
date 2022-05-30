@@ -70,12 +70,24 @@ public class Project {
         this.description = description;
     }
 
-    public void addCollaborator(User user){
+    public void addCollaborator(User user) {
         if(contributors == null) {
             contributors = new ArrayList<>();
         }
         contributors.add(user);
     }
+
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
+            fetch = FetchType.LAZY)
+    @JoinTable(name="project_language",
+            joinColumns = @JoinColumn(name="project_id"),
+            inverseJoinColumns = @JoinColumn(name="language_id")
+//            From Project, the foreign key is project_id
+    )
+    @JsonIgnore
+    private List<Project> languages;
+
+
 
 
 

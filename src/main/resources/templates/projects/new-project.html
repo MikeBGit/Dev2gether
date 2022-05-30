@@ -38,20 +38,28 @@
     </div>
     <!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
 
-    <!--        <select th:field="*{collaborators}" multiple="multiple">-->
-    <!--            <li th:each="user: ${users}">-->
-    <!--    &lt;!&ndash;            <input type="checkbox"  th:value="${student.studentId}" />&ndash;&gt;-->
-    <!--                <div class="input-group mb-3">-->
-    <!--                    <div class="input-group-text">-->
-    <!--                        <input class="form-check-input mt-0" type="checkbox" th:value="${user.id}" aria-label="Select the students that are part of the project" th:field="*{collaborators}">-->
-    <!--                    </div>-->
-    <!--                    <label th:text="${user.firstName} ${user.lastName}"/>-->
-    <!--                </div>-->
-    <!--            </li>-->
+<!--            <select th:field="*{languages}" multiple="multiple">-->
+<!--                <li th:each="language: ${languages}">-->
+<!--        &lt;!&ndash;            <input type="checkbox"  th:value="${student.studentId}" />&ndash;&gt;-->
+<!--                    <div class="input-group mb-3">-->
+<!--                        <div class="input-group-text">-->
+<!--                            <input class="form-check-input mt-0" type="checkbox" th:value="${language.id}" aria-label="Select the students that are part of the project" th:field="*{collaborators}">-->
+<!--                        </div>-->
+<!--                        <label th:text="${language.name}"/>-->
+<!--                    </div>-->
+<!--                </li>-->
 
+              <label for="languages" class="form-label text-white">Hold [Ctrl] to select multiple languages</label>
+              <select th:field="*{languages}" class="form-select mb-3" aria-label="select languages"   name="languages" id="languages" multiple="multiple">
+                <option
+                        th:each = "language : ${languages}"
+                        th:value = "${language.id}"
+                        th:text = "${language.name}">
+                </option>
+              </select>
 
     <!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
-    <label for="contributors" class="form-label text-white">Hold [Ctrl] to select multiple</label>
+    <label for="contributors" class="form-label text-white">Hold [Ctrl] to select multiple contributors</label>
     <select th:field="*{contributors}" class="form-select mb-3" aria-label="select contributors"   name="contributors" id="contributors" multiple="multiple">
       <option
               th:each = "member : ${users}"
