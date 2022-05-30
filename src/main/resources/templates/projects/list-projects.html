@@ -29,15 +29,14 @@
 
             <div  th:each="project : ${projects}" class="card mb-4">
                 <div class="card-header d-block">
-                    <div th:text="'Posted by ' + ${project.projectOwner.firstName} + ' on ' + ${#temporals.format(project.createdTimestamp, 'dd/MM/yyyy')}">
-
-                    </div>
-
+                    <span>Posted by</span>
+                    <a  style="text-decoration: none" th:href="@{'/users/' + ${project.projectOwner.id}}" th:text="${project.projectOwner.firstName} + ' ' + ${project.projectOwner.lastName}"></a>
+                    <span th:text="' on ' + ${#temporals.format(project.createdTimestamp, 'dd/MM/yyyy')}"></span>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title" th:text="${project.name}"></h5>
                     <p class="card-text" th:text="${project.description}"></p>
-                    <small class="card-text d-block mb-2" th:text="'Comments (' + ${#lists.size(project.comments) + ')'}"></small>
+                    <small class="card-text text-secondary d-block mb-2" th:text="'Comments (' + ${#lists.size(project.comments) + ')'}"></small>
                     <a th:href="@{/projects/{projectId}(projectId=${project.id})}" class="btn btn-lg btn-link">View</a>
                 </div>
             </div>

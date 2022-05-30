@@ -42,9 +42,11 @@
 
       <section class="mt-4 row mb-5 justify-content-end">
 
-        <div class="card" style="width: 18rem;">
+        <div class="card p-0" style="width: 18rem;">
           <h4 class="card-header" th:text="${user?.firstName} + ' ' + ${user?.lastName}">Featured</h4>
-          <img th:src="@{/images/default-profile-pic.svg}"  class="card-img-top" alt="User's profile pic">
+          <div class="text-center">
+            <img th:src="@{/images/default-profile-pic.svg}"  style="width: 16rem;" class="card-img-top" alt="User's profile pic">
+          </div>
           <div class="card-body">
             <p class="card-text lead">Code 4 lyfe</p>
           </div>
@@ -55,6 +57,7 @@
             </li>
           </ul>
         </div>
+
       </section>
     </div>
 </div>
