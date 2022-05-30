@@ -13,4 +13,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
   List<Comment> findByProjectIdOrderByCreatedTimestampDesc(Long projectId);
   List<Comment> findByProjectIdOrderByCreatedTimestampAsc(Long projectId);
   List<Comment> findByProjectIdOrderByNumOfUpvotesDesc(Long projectId);
+
 }

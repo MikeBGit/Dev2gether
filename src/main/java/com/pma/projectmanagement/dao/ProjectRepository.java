@@ -12,9 +12,9 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 //    @Override
 //    List<Project> findAll();
-    @Query(nativeQuery=true, value = "SELECT  stage as label , count(stage) as value " +
+    @Query(nativeQuery=true, value = "SELECT  state as label , count(state) as value " +
             "from project " +
-            "group by stage order by 2 desc")
+            "group by state order by 2 desc")
 
 //    HERES WHERE THE DTO COMES IN AS TYPE
     List<ProjectStatus> projectStatusCount();

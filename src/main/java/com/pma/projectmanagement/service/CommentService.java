@@ -7,12 +7,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentService {
 
   @Autowired
   CommentRepository commentRepository;
+
+  public Optional<Comment> getComment(Long id) {
+    return commentRepository.findById(id);
+  }
+
 
   public List<Comment> getAllComments() {
     List<Comment> comments = new ArrayList<>();
@@ -43,8 +49,8 @@ public class CommentService {
     commentRepository.save(comment);
   }
 
-  public void deleteComment(long id) {
-    commentRepository.deleteById(id);
+  public void deleteComment(Long commentId) {
+    commentRepository.deleteById(commentId);
   }
 
 

@@ -51,7 +51,7 @@ public class User implements UserDetails {
 //            From Project, the foreign key is project_id
     )
     @JsonIgnore // ignored for serialization in api
-    private List<Project> collaboratedProjects;
+    private List<Project> contributedProjects;
 
     @OneToMany(mappedBy="projectOwner")
     private List<Project> postedProjects;

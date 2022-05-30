@@ -10,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class Project {
 //            From Project, the foreign key is project_id
     )
     @JsonIgnore// ignored for serialization in api
-    private List<User> collaborators;
+    private List<User> contributors;
 
     @ManyToOne
     @JoinColumn(name="owner_id", nullable = false)
@@ -45,7 +44,7 @@ public class Project {
 
     private String name;
 
-    private String stage; //NOT STARTED, COMPLETED, NOT STARTED
+    private String state; //NOT STARTED, COMPLETED, NOT STARTED
 
     @Lob
     private String description;
@@ -61,21 +60,21 @@ public class Project {
     @OneToMany(mappedBy = "project")
     List<Comment> comments;
 
-    public Project(String name, String stage, String description) {
+    public Project(String name, String state, String description) {
     }
 
-    public Project(Long id, String name, String stage, String description) {
+    public Project(Long id, String name, String state, String description) {
         this.id = id;
         this.name = name;
-        this.stage = stage;
+        this.state = state;
         this.description = description;
     }
 
     public void addCollaborator(User user){
-        if(collaborators == null) {
-            collaborators = new ArrayList<>();
+        if(contributors == null) {
+            contributors = new ArrayList<>();
         }
-        collaborators.add(user);
+        contributors.add(user);
     }
 
 

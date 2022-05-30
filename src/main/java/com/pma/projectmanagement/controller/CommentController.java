@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.thymeleaf.model.IModel;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -59,14 +60,16 @@ public class CommentController {
   @GetMapping("/projects/{projectId}")
   public String getNewestComments(@PathVariable Long projectId, Model model) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    User user = userService.getUserByEmail(auth.getName()).get();
+    User user = userService.getUserByEmail(auth.getName()).orElse(null);;
     model.addAttribute("user", user);
 
     List<Comment> comments = commentService.getNewestComments(projectId);
-    List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+    if (user != null) {
+      List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+      model.addAttribute("upvotedComments", upvotedComments);
+    }
     model.addAttribute("comments", comments);
     model.addAttribute("commentUpvote", new CommentUpvote());
-    model.addAttribute("upvotedComments", upvotedComments);
     model.addAttribute("comment", new Comment());
     model.addAttribute("project", projectService.getProject(projectId).get());
 
@@ -76,14 +79,16 @@ public class CommentController {
   @GetMapping("/projects/{projectId}/comments/most-helpful")
   public String getMostHelpfulComments(@PathVariable Long projectId, Model model) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    User user = userService.getUserByEmail(auth.getName()).get();
+    User user = userService.getUserByEmail(auth.getName()).orElse(null);
     model.addAttribute("user", user);
 
     List<Comment> comments = commentService.getMostHelpfulComments(projectId);
-    List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+    if (user != null) {
+      List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+      model.addAttribute("upvotedComments", upvotedComments);
+    }
     model.addAttribute("comments", comments);
     model.addAttribute("commentUpvote", new CommentUpvote());
-    model.addAttribute("upvotedComments", upvotedComments);
     model.addAttribute("comment", new Comment());
     model.addAttribute("project", projectService.getProject(projectId).get());
 
@@ -93,14 +98,16 @@ public class CommentController {
     public String getOldestComments(@PathVariable Long projectId, Model model) {
 
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    User user = userService.getUserByEmail(auth.getName()).get();
+    User user = userService.getUserByEmail(auth.getName()).orElse(null);
     model.addAttribute("user", user);
 
     List<Comment> comments = commentService.getOldestComments(projectId);
-    List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+    if (user != null) {
+      List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
+      model.addAttribute("upvotedComments", upvotedComments);
+    }
     model.addAttribute("comments", comments);
     model.addAttribute("commentUpvote", new CommentUpvote());
-    model.addAttribute("upvotedComments", upvotedComments);
     model.addAttribute("comment", new Comment());
     model.addAttribute("project", projectService.getProject(projectId).get());
     return "projects/project";
@@ -111,16 +118,21 @@ public class CommentController {
     comment.setProject(new Project(projectId, "", "", ""));
 
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    User user = userService.getUserByEmail(auth.getName()).get();
+    User user = userService.getUserByEmail(auth.getName()).orElse(null);
 
     comment.setUser(new User(user.getId(), "", "", "", "", "", true));
     commentService.addComment(comment);
     return "redirect:/projects/{projectId}";
   }
 
-  @GetMapping("/comments/delete/{commentId}")
-  public String delete(@PathVariable Long commentId) {
+  @GetMapping("/comments/delete/{commentId}/{projectId}")
+  public String delete(@PathVariable Long commentId, @PathVariable Long projectId) {
+
+//    Long projectId = commentService.getComment(commentId).get().getProject().getId();
+//    model.addAttribute("projectId", projectId);
+
     commentService.deleteComment(commentId);
-    return "redirect:/projects/10/10";
+
+    return "redirect:/projects/{projectId}";
   }
 }

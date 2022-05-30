@@ -21,7 +21,7 @@
             <img class="mb-4" th:src="@{images/loginIcon.png}" alt="" width="72" height="65">
             <h1 class="h3 mb-3 fw-normal text-white">Please sign in</h1>
 
-            <div th:if="${param.error}" class="alert alert-success">
+            <div th:if="${param.error}" class="alert alert-danger">
                 Invalid username and password
             </div>
             <div th:if="${param.logout}" class="alert alert-success">

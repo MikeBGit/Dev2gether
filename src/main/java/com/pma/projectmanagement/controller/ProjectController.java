@@ -28,7 +28,8 @@ public class ProjectController {
     @GetMapping
     public String displayProjects(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getUserByEmail(auth.getName()).get();
+        User user = userService.getUserByEmail(auth.getName()).orElse(null);
+
         model.addAttribute("user", user);
 
         List<Project> projects = projectService.getAllProjects();
@@ -38,7 +39,9 @@ public class ProjectController {
 
     @GetMapping("/new")
     public String displayProjectForm(Model model){
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).orElse(null);
+        model.addAttribute("user", user);
 
         Project project = new Project();
         List<User> users = userService.getAllUsers();

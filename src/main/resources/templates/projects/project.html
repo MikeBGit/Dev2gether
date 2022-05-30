@@ -40,8 +40,9 @@
 
 
 
-    <section class="row">
-      <h1 th:text="${project.name}" class="text-center display-3 my-4"></h1>
+    <section class=" mt-4 row mb-5">
+      <h1 th:text="${project.name}" class="text-center display-3 mb-3 fw-bold"></h1>
+      <div class="badge rounded-pill bg-danger text-center mb-4" th:text="${project.state}"></div>
       <div class="col-9">
 
         <h5 class="display-6">Description</h5>
@@ -63,12 +64,17 @@
 
       </div>
       <div class="col-3">
-        <section class="row mt-2 mb-5">
+        <section class="row mt-2 mb-4">
           <h5 class="display-7">Project Owner</h5>
           <p class="lead" th:text="${project.projectOwner.firstName} + ' ' + ${project.projectOwner.lastName}"></p>
         </section>
-        <section class="row mb-5">
+        <section class="row mb-4">
           <h5 class="display-7">Contributors</h5>
+          <ul>
+            <li th:each="contributor : ${project.contributors}" th:text="${contributor.firstName}"></li>
+            <!--              <li>HTML</li>-->
+            <!--              <li>CSS</li>-->
+          </ul>
         </section>
         <section class="row">
           <h5 class="display-7">Last Modified</h5>
@@ -83,20 +89,25 @@
 
 
 
-
-    <p th:text="'Comment as ' + ${user.firstName} + ' ' + ${user.lastName}" class="offset-1 mt-5"></p>
-    <form th:action="@{/projects/__${projectId}__}" method="post" th:object="${comment}" id="comment">
-      <div class="form-group row offset-1 mb-2">
-        <textarea name="comment" th:field="${comment.content}" rows="3" class="col-11" form="comment" placeholder="Add a comment..." required></textarea>
-      </div>
-      <div class="form-group row">
-        <!--    <input type="text" placeholder="Leave a comment" th:field="${comment.content}">-->
-        <button type="submit" class="btn btn-primary offset-9 col-2">Comment</button>
-      </div>
-    </form>
+    <section class="border border-secondary row rounded bg-light py-4">
+        <p th:if="${user != null}" class="offset-1 lead">
+          Comment as
+          <a th:href="@{/dashboard} " th:text="${user?.firstName} + ' ' + ${user?.lastName}" class="link-primary"></a>
+        </p>
+        <p th:unless="${user != null}" class="offset-1 lead">Please <a href="/login" class="link-primary">sign in</a> in to comment.</p>
+        <form th:action="@{/projects/__${projectId}__}" method="post" th:object="${comment}" id="comment">
+          <div class="form-group row offset-1 mb-2">
+            <textarea name="comment" th:disabled="${user == null}" th:field="${comment.content}" rows="3" class="col-11" form="comment" placeholder="Add a comment..." required></textarea>
+          </div>
+          <div class="form-group row mt-3">
+            <!--    <input type="text" placeholder="Leave a comment" th:field="${comment.content}">-->
+            <button type="submit" th:disabled="${user == null}" class="btn btn-primary offset-9 col-2">Comment</button>
+          </div>
+        </form>
+    </section>
 
     <section class="row">
-      <div class="col-10 offset-1">
+      <div class="col-12">
         <table class="table mt-3" style="width:100%">
           <thead>
             <tr>
@@ -122,24 +133,25 @@
               <td class="text-center align-middle" style="width:5%">
                 <form th:action="@{/projects/__${projectId}__/commentUpvote/store}" method="post" th:object="${commentUpvote}" id="commentUpvote">
                   <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}"/>
-                  <input type="hidden" id="userId" name="userId" th:value="${user.id}"/>
-                  <button class="btn">
-                    <i th:if="${upvotedComments.contains(comment.id)}" class="bi bi-hand-thumbs-up-fill w-100"></i>
-                    <i th:unless="${upvotedComments.contains(comment.id)}" class="bi bi-hand-thumbs-up w-100"></i>
+                  <input type="hidden" id="userId" name="userId" th:value="${user?.id}"/>
+                  <button class="btn" th:disabled="${user == null}">
+                    <i th:if="${upvotedComments?.contains(comment.id)}" class="bi bi-hand-thumbs-up-fill w-100"></i>
+                    <i th:unless="${upvotedComments?.contains(comment.id)}" class="bi bi-hand-thumbs-up w-100"></i>
                   </button>
                   <div th:text="${comment.numOfUpvotes == 0} ? '' : ${comment.numOfUpvotes}"></div>
                 </form>
               </td>
 
-              <td class="text-center align-middle" th:text="${comment.user.username}" style="width:10%"></td>
+              <td class="text-center align-middle" th:text="${comment.user.firstName} + ' ' + ${comment.user.lastName}" style="width:10%">
+              </td>
               <td id="comment-box" class="align-middle" th:text="${comment.content}" style="width:65%"></td>
               <td class="text-center align-middle" style="width:10%">
                 <small th:text="${#temporals.format(comment.createdTimestamp, 'dd/MM/yyyy')} + ' at ' + ${#temporals.format(comment.createdTimestamp, 'hh:mm a')}"></small>
               </td>
               <!--Change static user id to dynamic -->
               <td style="width:10%" class="text-center align-middle">
-                <a th:if="${comment.user.id == 10}" id="edit" class="btn btn-secondary btn-sm col-12 mb-1">Edit</a>
-                <a th:if="${comment.user.id == 10}" id="delete" th:href="@{/comments/delete/{commentId}(commentId=${comment.id})}" class="btn btn-danger btn-sm col-12">Delete</a>
+                <a th:if="${comment.user.id == user?.id}" id="edit" class="btn btn-secondary btn-sm col-12 mb-1">Edit</a>
+                <a th:if="${comment.user.id == user?.id}" id="delete" th:href="@{'/comments/delete/' + ${comment.id} + '/' + ${project.id}}" class="btn btn-danger btn-sm col-12">Delete</a>
               </td>
             </tr>
           </tbody>
