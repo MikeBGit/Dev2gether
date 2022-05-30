@@ -29,8 +29,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
        auth.jdbcAuthentication()
-               .usersByUsernameQuery("select username, password, enabled from user_accounts where username = ?")
-               .authoritiesByUsernameQuery("select username, role from user_accounts where username = ?")
+               .usersByUsernameQuery("select email, password, enabled from user where email = ?")
+               .authoritiesByUsernameQuery("select email, role from user where email = ?")
                .dataSource(dataSource)
                .passwordEncoder(bCryptEncoder);
     }
@@ -39,9 +39,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/projects/new").hasAuthority("ADMIN")
-                .antMatchers("/projects/save").hasAuthority("ADMIN")
-                .antMatchers("/", "/**").permitAll().and().formLogin();
+//                .antMatchers("/projects/new").hasAuthority("ADMIN")
+                .antMatchers("/dashboard").authenticated()
+                .antMatchers("/projects/new").authenticated()
+//                .antMatchers("/dashboard").hasAuthority("USER")
+                .antMatchers("/", "/**").permitAll().and().formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard",true);
     }
 
 }

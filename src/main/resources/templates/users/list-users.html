@@ -6,10 +6,10 @@
 <nav th:replace="layouts:: nav"></nav>
 
 <div class="container">
-    <h3>Students Directory</h3>
+    <h3>Users Directory</h3>
     <hr>
 
-    <a th:href="@{/students/new}" class="btn btn-primary btn-sm mb-3">Save New Student</a>
+    <a th:href="@{/users/new}" class="btn btn-primary btn-sm mb-3">Save New User</a>
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
@@ -18,9 +18,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="aStudent : ${students}">
-            <td th:text="${aStudent.firstName}"/>
-            <td th:text="${aStudent.lastName}"/>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstName}"/>
+            <td th:text="${user.lastName}"/>
         </tr>
 
         </tbody>

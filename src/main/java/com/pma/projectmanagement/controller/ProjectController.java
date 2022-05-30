@@ -1,52 +1,68 @@
 package com.pma.projectmanagement.controller;
-
-
-import com.pma.projectmanagement.dao.ProjectRepository;
-import com.pma.projectmanagement.dao.StudentRepository;
+import com.pma.projectmanagement.entities.CommentUpvote;
 import com.pma.projectmanagement.entities.Project;
-import com.pma.projectmanagement.entities.Student;
+
+import com.pma.projectmanagement.entities.User;
+import com.pma.projectmanagement.service.LanguageService;
+import com.pma.projectmanagement.service.ProjectService;
+import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
 
     @Autowired
-    ProjectRepository projectRepository;
+    ProjectService projectService;
     @Autowired
-    StudentRepository studentRepository;
+    UserService userService;
+
+    @Autowired
+    LanguageService languageService;
 
     @GetMapping
     public String displayProjects(Model model){
-        List<Project> projects = projectRepository.findAll();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).orElse(null);
+
+        model.addAttribute("user", user);
+
+        List<Project> projects = projectService.getAllProjects();
         model.addAttribute("projects", projects);
         return "projects/list-projects";
     }
 
     @GetMapping("/new")
     public String displayProjectForm(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).orElse(null);
+        model.addAttribute("user", user);
 
-        Project aProject = new Project();
-        List<Student> students = studentRepository.findAll();
-
-        model.addAttribute("allStudents", students);
-        model.addAttribute("project", aProject);
+        Project project = new Project();
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        model.addAttribute("project", project);
+        model.addAttribute("languages", languageService.getAllLanguages());
 
         return "projects/new-project";
     }
 
     @PostMapping("/save")
     public String createProject(Project project, Model model){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        project.setProjectOwner(userService.getUserByEmail(auth.getName()).get());
 //        This should handle the saving to the database
-        projectRepository.save(project);
+        projectService.addProject(project);
 
 
 
@@ -61,4 +77,5 @@ public class ProjectController {
 //        Use a Redirect to prevent duplicate submissions
         return "redirect:/projects";
     }
+
 }

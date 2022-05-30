@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <!--    <link rel="stylesheet" th:href="@{css/formatting.css}"/>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+    <style>
+        .dark-heading{
+            color: rgba(0, 0, 0, 0.8);
+        }
+        .courier{
+            font-family: 'Courier New', Courier, monospace;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        #indexImg {
+            border-radius: 200px;
+            border: 10px solid black;
+            background-color: black;
+        }
+        #bottomHalf {
+            background-color: rgba(0, 0, 0, 0.5);;
+        }
+
+        #backgroundDash {
+            background:linear-gradient(0deg, rgba(255, 00, 55, 0.1), rgba(225, 255, 255, 0.1));
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height:100%;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="layouts:: header"></header>
+<nav th:replace="layouts:: nav"></nav>
+<div class="fluid-container row" id="backgroundDash">
+<!--    <div class="col-3" th:replace="layouts:: sidebar"></div>-->
+
+<!--    PROJECTS LIST-->
+    <div class="row">
+        <div class="col-3" style="display: flex;
+  min-height: 100vh;">
+            <div sec:authorize="isAuthenticated()" th:replace="layouts:: sidebar"/>
+        </div>
+
+        <div class="col-7">
+
+<!--    <div class = "col-9 justify-content-center">-->
+        <div class=" row pt-3">
+            <h3 class="text-dark text-end" th:text="'Welcome back, ' + ${user.firstName} + ' ' + ${user.lastName} +'!'"></h3>
+        </div>
+        <div class = "row">
+            <h1 class="display-3 text-info text-center fw-bold mt-2 mb-5">Your Projects</h1>
+        </div>
+
+
+
+            <div  th:each="project : ${projects}" class="card mb-4">
+                <div class="card-header d-block">
+                    <span>Posted by</span>
+                    <a  style="text-decoration: none" th:href="@{'/users/' + ${project.projectOwner.id}}" th:text="${project.projectOwner.firstName} + ' ' + ${project.projectOwner.lastName}"></a>
+                    <span th:text="' on ' + ${#temporals.format(project.createdTimestamp, 'dd/MM/yyyy')}"></span>
+
+<!--                    <div th:text="'Posted by ' + ${project.projectOwner.firstName} + ' on ' + ${#temporals.format(project.createdTimestamp, 'dd/MM/yyyy')}">-->
+
+<!--                    </div>-->
+
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${project.name}"></h5>
+                    <p class="card-text" th:text="${project.description}"></p>
+                    <small class="card-text text-secondary d-block mb-2" th:text="'Comments (' + ${#lists.size(project.comments) + ')'}"></small>
+                    <a th:href="@{/projects/{projectId}(projectId=${project.id})}" class="btn btn-lg btn-link">View</a>
+                </div>
+            </div>
+<!--            <div class="col-12 row p-3">-->
+<!--                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>-->
+<!--            </div>-->
+<!--            <div class="col-12 row p-3">-->
+<!--                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>-->
+<!--            </div>-->
+<!--            <div class="col-12 row p-3">-->
+<!--                <h1 class="display-5 p-2 ms-3">This is where a project listing would go</h1>-->
+<!--            </div>-->
+
+<!--    </div>-->
+<!--    PROJECTS LIST-->
+
+
+    </div>
+</div>
+</body>
+</html>

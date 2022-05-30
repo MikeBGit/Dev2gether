@@ -1,43 +1,92 @@
 package com.pma.projectmanagement.controller;
-
-import com.pma.projectmanagement.dao.UserAccountRepository;
-import com.pma.projectmanagement.entities.UserAccount;
-import org.apache.catalina.User;
+import com.pma.projectmanagement.dao.UserRepository;
+import com.pma.projectmanagement.entities.User;
+import com.pma.projectmanagement.service.ProjectService;
+import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @Controller
 public class SecurityController {
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     BCryptPasswordEncoder bCryptEncoder;
 
     @Autowired
-    UserAccountRepository userAccountRepository;
+    UserRepository userRepository;
+
+    @Autowired
+    ProjectService projectService;
 
     @GetMapping("/register")
     public String register(Model model){
 
-        UserAccount userAccount = new UserAccount();
+        User user = new User();
 
-        model.addAttribute("userAccount", userAccount);
+        model.addAttribute("user", user);
 
         return "security/register";
     }
 
-    @PostMapping("/register/save")
-    public String saveUSer(Model model, UserAccount user){
+    @PostMapping("/register")
+    public String saveUSer(Model model, @Valid @ModelAttribute("user") User user, BindingResult result){
+
+        if (result.hasErrors() || userService.getUserByEmail(user.getEmail()).isPresent()) {
+            if (userService.getUserByEmail(user.getEmail()).isPresent()) {
+                model.addAttribute("emailErrorMsg", "Email address already in use.");
+            }
+            return "security/register";
+        }
+
+//        if (userService.getUserByEmail(user.getEmail()).isPresent()) {
+//            model.addAttribute("emailErrorMsg", "Email address already in use.");
+//            return "security/register";
+//        }
 
         user.setPassword(bCryptEncoder.encode(user.getPassword()));
 
-        userAccountRepository.save(user);
+        userRepository.save(user);
 
-        return "redirect:/";
+        return "security/success";
+    }
 
 
+    @GetMapping("/login")
+    public String login() {
+        return "security/login";
+    }
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "security/logout";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).get();
+        model.addAttribute(user);
+
+        model.addAttribute("projects", projectService.getProjectsByProjectOwner(user));
+
+        return "security/dashboard";
     }
 }

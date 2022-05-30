@@ -1,39 +1,91 @@
-<html xmlns:th="http://thymeleaf.org">
-<head th:replace="layouts:: head"></head>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <title>Dev2gether - Create New Project</title>
+  <!-- link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" /-->
+  <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+</head>
 
-<body>
+<body  class="text-center h-100 row align-items-center d-flex justify-content-center"
+       th:style="'background: linear-gradient(0deg, rgba(0, 0, 55, 0.5), rgba(0, 0, 0, 0.6)), url(/images/loginBackground.jpg); min-height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;'">
 
+<header th:replace="layouts:: header"></header>
 <nav th:replace="layouts:: nav"></nav>
-<div class="container">
 
-    <form th:action="@{/projects/save}" method="POST" th:object="${project}">
-        <input type="text" placeholder="Project Name" th:field="${project.name}">
-        <select th:field="${project.stage}">
-            <option th:value="NOTSTARTED"> Not Started</option>
-            <option th:value="INPROGRESS"> In Progress</option>
-            <option th:value="COMPLETED"> Completed</option>
-        </select>
-        <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
+<!--<br class="p-5">-->
+<main class="form-signin p-5 col-lg-4 h-100 row align-items-center justify-content-center">
+  <form autocomplete="off" th:action="@{/projects/save}" method="POST" th:object="${project}" class="form" role="form">
+    <img class="mb-4" th:src="@{/images/createProject.png}" alt="" width="72" height="65">
+    <h3 class="form-signin-heading h3 mb-3 fw-normal text-white">Create New Project</h3>
 
-<!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
+    <div class="form-floating mb-3">
+      <input type="text"  placeholder="Project Name" class="form-control" id="projectName" name="projectName" th:field="${project.name}"/>
+      <label for="projectName">Project Name</label>
+    </div>
+
+    <select th:field="${project.state}" class="form-select mb-3" aria-label="select state">
+      <option selected th:value="NOTSTARTED">Not Started</option>
+      <option th:value="INPROGRESS">In Progress</option>
+      <option th:value="COMPLETED">Completed</option>
+    </select>
+
+    <div class="mb-3">
+      <label for="description" class="form-label text-white">Project Description</label>
+      <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}" class="form-control" id="description" rows="4"></textarea>
+    </div>
+    <!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
+
+<!--            <select th:field="*{languages}" multiple="multiple">-->
+<!--                <li th:each="language: ${languages}">-->
+<!--        &lt;!&ndash;            <input type="checkbox"  th:value="${student.studentId}" />&ndash;&gt;-->
+<!--                    <div class="input-group mb-3">-->
+<!--                        <div class="input-group-text">-->
+<!--                            <input class="form-check-input mt-0" type="checkbox" th:value="${language.id}" aria-label="Select the students that are part of the project" th:field="*{collaborators}">-->
+<!--                        </div>-->
+<!--                        <label th:text="${language.name}"/>-->
+<!--                    </div>-->
+<!--                </li>-->
+
+              <label for="languages" class="form-label text-white">Hold [Ctrl] to select multiple languages</label>
+              <select th:field="*{languages}" class="form-select mb-3" aria-label="select languages"   name="languages" id="languages" multiple="multiple">
+                <option
+                        th:each = "language : ${languages}"
+                        th:value = "${language.id}"
+                        th:text = "${language.name}">
+                </option>
+              </select>
+
+    <!--        means to look for something withing the parent th:object-, you could use ${project.employees} but * is shorthand-->
+    <label for="contributors" class="form-label text-white">Hold [Ctrl] to select multiple contributors</label>
+    <select th:field="*{contributors}" class="form-select mb-3" aria-label="select contributors"   name="contributors" id="contributors" multiple="multiple">
+      <option
+              th:each = "member : ${users}"
+              th:if="${user.id != member.id}"
+              th:value = "${member.id}"
+              th:text = "${member.firstName}">
+      </option>
+    </select>
+
+    <!--            CHECKBOX-->
+    <div class="checkbox mb-3">
+      <label class="text-white p-2">
+        <input  type="checkbox" value="remember-me"> I understand and agree to all of Dev2gether's terms and conditions.
+      </label>
+    </div>
+    <!--            CHECKBOX-->
+
+    <div class="form-floating m-2">
+      <button type="submit" class="w-100 btn btn-lg btn-primary">Create Project</button>
+    </div>
+    <!-- <span th:utext="${successMessage}"></span> -->
+
+    <p class="mt-5 mb-3 text-white">Â© 2022 - Dev2gether.com</p>
+  </form>
+</main>
 
 
-        <select th:field="*{students}" multiple="multiple">
-            <option
-                    th:each = "student : ${allStudents}"
-                    th:value = "${student.studentId}"
-                    th:text = "${student.firstName}">
-            </option>
-        </select>
-
-
-
-        <button type="submit">Create Project</button>
-    </form>
-
-
-</div>
-
-
-
-</body></html>
+</body>
+</html>

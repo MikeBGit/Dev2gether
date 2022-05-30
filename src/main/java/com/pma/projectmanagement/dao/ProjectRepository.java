@@ -2,21 +2,28 @@ package com.pma.projectmanagement.dao;
 
 
 import com.pma.projectmanagement.dto.ProjectStatus;
-import com.pma.projectmanagement.dto.StudentProject;
 import com.pma.projectmanagement.entities.Project;
+import com.pma.projectmanagement.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
-    @Override
-    List<Project> findAll();
-    @Query(nativeQuery=true, value = "SELECT  stage as label , count(stage) as value " +
+//    @Override
+//    List<Project> findAll();
+    @Query(nativeQuery=true, value = "SELECT  state as label , count(state) as value " +
             "from project " +
-            "group by stage order by 2 desc")
+            "group by state order by 2 desc")
 
 //    HERES WHERE THE DTO COMES IN AS TYPE
-    public List<ProjectStatus> projectStatusCount();
+    List<ProjectStatus> projectStatusCount();
+
+    List<Project> findByProjectOwner(User user);
+
+
+    @Query(nativeQuery=true, value ="SELECT * FROM project p WHERE p.stage = :status and p.owner_id = :name")
+    List<Project> findProjectsByStatus(@Param("status") String stage,
+                                         @Param("name") Long owner);
 }
