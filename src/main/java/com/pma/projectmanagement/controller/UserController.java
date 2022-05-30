@@ -2,6 +2,8 @@ package com.pma.projectmanagement.controller;
 import com.pma.projectmanagement.entities.User;
 import com.pma.projectmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +46,13 @@ public class UserController {
   @GetMapping("/{id}")
   public String displayUser(@PathVariable Long id, Model model){
     model.addAttribute("user", userService.getUser(id).get());
+    return "users/user";
+  }
+  @GetMapping("/view")
+  public String viewProfile(Model model){
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    User user = userService.getUserByEmail(auth.getName()).orElse(null);
+    model.addAttribute("user", user);
     return "users/user";
   }
 
