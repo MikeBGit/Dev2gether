@@ -15,10 +15,10 @@
 //  @Autowired
 //  UserService userService;
 //
-//  @ModelAttribute("user")
+//  @ModelAttribute("user.html")
 //  public User populateUser() {
 //    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//    User user = userService.getUserByEmail(auth.getName()).get();
-//    return user;
+//    User user.html = userService.getUserByEmail(auth.getName()).get();
+//    return user.html;
 //  }
 //}

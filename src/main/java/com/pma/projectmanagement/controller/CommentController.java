@@ -76,13 +76,13 @@ public class CommentController {
     return "projects/project";
   }
 
-  @GetMapping("/projects/{projectId}/comments/most-helpful")
+  @GetMapping("/projects/{projectId}/comments/most-liked")
   public String getMostHelpfulComments(@PathVariable Long projectId, Model model) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     User user = userService.getUserByEmail(auth.getName()).orElse(null);
     model.addAttribute("user", user);
 
-    List<Comment> comments = commentService.getMostHelpfulComments(projectId);
+    List<Comment> comments = commentService.getMostLikedComments(projectId);
     if (user != null) {
       List<Long> upvotedComments = commentUpvoteService.getCommentUpvotesByUserId(user.getId()).stream().map(commentUpvote -> commentUpvote.getCommentId()).collect(Collectors.toList());
       model.addAttribute("upvotedComments", upvotedComments);

@@ -1,7 +1,7 @@
 package com.pma.projectmanagement.entities;
 
 //import dev2gether.project.Project;
-//import dev2gether.user.User;
+//import dev2gether.user.html.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -50,7 +50,7 @@ public class CommentUpvoteController {
 //    model.addAttribute("upvotedComments", upvotedComments);
 ////      model.addAttribute("comment", new Comment());
 //    model.addAttribute("project", projectService.getProject(projectId).get());
-//    model.addAttribute("user", userService.getUser(userId).get());
+//    model.addAttribute("user.html", userService.getUser(userId).get());
     return "redirect:/projects/{projectId}/";
   }
 }
