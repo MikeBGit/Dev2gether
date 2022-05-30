@@ -29,7 +29,7 @@
 
 <!--            <a th:href="@{/projects/new}" class="btn btn-primary btn-sm mb-3">Save New Project</a>-->
 
-            <div  th:each="project : ${projects}" class="card mb-4">
+            <div  th:each="project, iStat : ${projects}" class="card mb-4">
                 <div class="card-header d-block">
                     <span>Posted by</span>
                     <a  style="text-decoration: none" th:href="@{'/users/' + ${project.projectOwner.id}}" th:text="${project.projectOwner.firstName} + ' ' + ${project.projectOwner.lastName}"></a>
@@ -40,6 +40,7 @@
                     <p class="card-text" th:text="${project.description}"></p>
                     <small class="card-text text-secondary d-block mb-2" th:text="'Comments (' + ${#lists.size(project.comments) + ')'}"></small>
                     <a th:href="@{/projects/{projectId}(projectId=${project.id})}" class="btn btn-lg btn-link">View</a>
+                    <div class="col-3"><img class="border border-dark rounded-circle" th:src="@{'https://picsum.photos/200/200?random=' + ${iStat.index}}"></div>
                 </div>
             </div>
         </div>
