@@ -3,6 +3,7 @@ import com.pma.projectmanagement.entities.CommentUpvote;
 import com.pma.projectmanagement.entities.Project;
 
 import com.pma.projectmanagement.entities.User;
+import com.pma.projectmanagement.exception.RecordNotFoundException;
 import com.pma.projectmanagement.service.LanguageService;
 import com.pma.projectmanagement.service.ProjectService;
 import com.pma.projectmanagement.service.UserService;
@@ -31,6 +32,7 @@ public class ProjectController {
 
     @GetMapping
     public String displayProjects(Model model){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByEmail(auth.getName()).orElse(null);
 
@@ -43,6 +45,7 @@ public class ProjectController {
 
     @GetMapping("/NYS")
     public String NYS(Model model){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByEmail(auth.getName()).orElse(null);
         List<Project> projects = projectService.getAllByStatus("NOTSTARTED", user.getId());
@@ -54,6 +57,7 @@ public class ProjectController {
 
     @GetMapping("/inProgress")
     public String InProgress(Model model){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByEmail(auth.getName()).orElse(null);
         List<Project> projects = projectService.getAllByStatus("INPROGRESS", user.getId());
@@ -65,6 +69,7 @@ public class ProjectController {
 
     @GetMapping("/completed")
     public String completed(Model model){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByEmail(auth.getName()).orElse(null);
         List<Project> projects = projectService.getAllByStatus("COMPLETED",user.getId());
@@ -76,6 +81,7 @@ public class ProjectController {
 
     @GetMapping("/new")
     public String displayProjectForm(Model model){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByEmail(auth.getName()).orElse(null);
         model.addAttribute("user", user);
@@ -94,21 +100,10 @@ public class ProjectController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         project.setProjectOwner(userService.getUserByEmail(auth.getName()).get());
-//        This should handle the saving to the database
+
         projectService.addProject(project);
-
-
-
-//      CODE FOR ONE TO MANY STUDENT PROJECT ASSIGN
-//        Iterable<Student> chosenStudents = studentRepository.findAllById(students);
-//
-//        for(Student student: chosenStudents){
-//            student.setProject(project);
-//            studentRepository.save(student);
-//        }
-
-//        Use a Redirect to prevent duplicate submissions
         return "redirect:/projects";
     }
+
 
 }

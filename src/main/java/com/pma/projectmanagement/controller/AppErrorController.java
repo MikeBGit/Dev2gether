@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AppErrorController implements ErrorController {
-
     @GetMapping("/error")
     public  String handleError(HttpServletRequest request) {
+
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if(status != null) {
@@ -30,10 +30,8 @@ public class AppErrorController implements ErrorController {
                 return "error/error-500";
             }
         }
-
         return "error/error";
     }
-
 
     public String getErrorPath(){
         return "/error";
@@ -58,5 +56,4 @@ public class AppErrorController implements ErrorController {
     public String error500() {
         return "error/error-500";
     }
-
 }

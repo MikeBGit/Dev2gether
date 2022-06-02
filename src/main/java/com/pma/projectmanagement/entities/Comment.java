@@ -1,8 +1,5 @@
 package com.pma.projectmanagement.entities;
 
-//import dev2gether.project.Project;
-//import dev2gether.user.html.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,11 +43,5 @@ public class Comment {
   @Formula("(select count(cu.comment_id) from comment_upvote cu where cu.comment_id = id)")
   @Column(name="num_of_upvotes")
   private Integer numOfUpvotes;
-//  @ManyToMany
-//  private List<User> upvotes = new ArrayList<>();
-
-//  public Comment(String content) {
-//    this.content = content;
-//  }
 
 }

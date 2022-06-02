@@ -20,21 +20,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
 public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    mappedBy is the name found on Student
+
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @JoinTable(name="project_user",
                 joinColumns = @JoinColumn(name="project_id"),
                 inverseJoinColumns = @JoinColumn(name="user_id")
-//            From Project, the foreign key is project_id
     )
+
     @JsonIgnore// ignored for serialization in api
     private List<User> contributors = new ArrayList<>();
 
@@ -77,16 +76,6 @@ public class Project {
         contributors.add(user);
     }
 
-//    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
-//            fetch = FetchType.LAZY)
-//    @JoinTable(name="project_language",
-//            joinColumns = @JoinColumn(name="project_id"),
-//            inverseJoinColumns = @JoinColumn(name="language_id")
-////            From Project, the foreign key is project_id
-//    )
-//    @JsonIgnore
-//    private List<Project> languages;
-
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @JoinTable(name="project_language",
@@ -96,7 +85,4 @@ public class Project {
     )
     @JsonIgnore// ignored for serialization in api
     private List<Language> languages;
-
-
-
 }

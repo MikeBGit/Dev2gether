@@ -12,19 +12,10 @@ import javax.persistence.IdClass;
 @IdClass(CommentUpvoteKey.class)
 @NoArgsConstructor
 public class CommentUpvote {
-//
-//  @EmbeddedId
-//  private CommentUpvoteKey id;
 
-//  @ManyToOne
-////  @JoinColumn(name="comment_id", insertable = false, updatable = false)
-//  @JoinColumn(name="comment_id", referencedColumnName="id")
   @Id
   private Long commentId;
 
-//  @ManyToOne
-////  @JoinColumn(name="user_id", insertable = false, updatable = false)
-//  @JoinColumn(name="user_id", referencedColumnName="id")
   @Id
   private Long userId;
 

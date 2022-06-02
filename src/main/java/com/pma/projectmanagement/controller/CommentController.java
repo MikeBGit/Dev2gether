@@ -37,23 +37,6 @@ public class CommentController {
   @Autowired
   UserService userService;
 
-//  @GetMapping("/projects/{projectId}")
-//  public String index(@PathVariable Long projectId, Model model) {
-//    List<Comment> comments = commentService.commentRepository.findByProjectId(projectId);
-//    model.addAttribute("comments", comments);
-//
-//    model.addAttribute("comment", new Comment());
-//    model.addAttribute("project", projectService.getProject(projectId).get());
-//    return "project-page";
-//  }
-//
-//  @PostMapping("/projects/{projectId}")
-//  public String store(@Valid @ModelAttribute("comment") Comment comment, @PathVariable Long projectId, BindingResult result) {
-//    comment.setProject(new Project(projectId, "", ""));
-//    commentService.addComment(comment);
-//    return "redirect:/projects/{projectId}";
-//  }
-
   @GetMapping("/projects/{projectId}")
   public String getNewestComments(@PathVariable Long projectId, Model model) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -154,11 +137,7 @@ public class CommentController {
   @GetMapping("/comments/delete/{commentId}/{projectId}")
   public String delete(@PathVariable Long commentId, @PathVariable Long projectId) {
 
-//    Long projectId = commentService.getComment(commentId).get().getProject().getId();
-//    model.addAttribute("projectId", projectId);
-
     commentService.deleteComment(commentId);
-
     return "redirect:/projects/{projectId}";
   }
 }

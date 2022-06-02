@@ -68,28 +68,22 @@ public class UserController {
     return "users/update-profile";
   }
 
-
   @PostMapping(path="/update-save")
   public String partialUpdate(User patchUser){
 
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     User user = userService.getUserByEmail(auth.getName()).orElse(null);
-//
 
     if(patchUser.getFirstName() != null){
 //            If the requestbody has a firstName, set new email.
       user.setFirstName(patchUser.getFirstName());
     }
-//
+
     if(patchUser.getLastName() != null){
 //            If the requestbody has a lastName, set new email.
       user.setLastName(patchUser.getLastName());
     }
-
     userService.updateUser(user);
-
     return "redirect:/dashboard";
-
   }
-
 }

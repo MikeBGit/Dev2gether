@@ -41,21 +41,20 @@ public class User implements UserDetails {
     private String role;
     private boolean enabled = true;
 
-    //    RULES FOR DELETing on the child side. in the event something happens to the parent, these rules apply to the child
+
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
-//    Lazy loading is better for performance
+
     @JoinTable(name="project_user",
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="project_id")
-//            From Project, the foreign key is project_id
     )
+
     @JsonIgnore // ignored for serialization in api
     private List<Project> contributedProjects;
 
     @OneToMany(mappedBy="projectOwner")
     private List<Project> postedProjects;
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Comment> comments;

@@ -15,12 +15,6 @@ public class CommentUpvoteService {
   @Autowired
   CommentUpvoteRepository commentUpvoteRepository;
 
-//  public List<CommentUpvote> getAllCommentUpvote() {
-//    List<CommentUpvote> comment = new ArrayList<>();
-//    users.addAll(commentUpvoteRepository.findAll());
-//    return users;
-//  }
-
   public List<CommentUpvote> getCommentUpvotesByUserId(Long userId) {
     List<CommentUpvote> commentUpvotes = new ArrayList<>();
     commentUpvotes.addAll(commentUpvoteRepository.findByUserId(userId));

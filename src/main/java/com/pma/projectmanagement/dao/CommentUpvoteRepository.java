@@ -10,6 +10,5 @@ import java.util.List;
 public interface CommentUpvoteRepository extends JpaRepository<CommentUpvote, Long> {
 
   CommentUpvote findByCommentIdAndUserId(Long commentId, Long userId);
-
   List<CommentUpvote> findByUserId(Long userId);
 }

@@ -36,9 +36,7 @@ public class SecurityController {
     public String register(Model model){
 
         User user = new User();
-
         model.addAttribute("user", user);
-
         return "security/register";
     }
 
@@ -52,18 +50,10 @@ public class SecurityController {
             return "security/register";
         }
 
-//        if (userService.getUserByEmail(user.getEmail()).isPresent()) {
-//            model.addAttribute("emailErrorMsg", "Email address already in use.");
-//            return "security/register";
-//        }
-
         user.setPassword(bCryptEncoder.encode(user.getPassword()));
-
         userRepository.save(user);
-
         return "security/success";
     }
-
 
     @GetMapping("/login")
     public String login() {
@@ -72,6 +62,7 @@ public class SecurityController {
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
@@ -81,12 +72,11 @@ public class SecurityController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByEmail(auth.getName()).get();
         model.addAttribute(user);
-
         model.addAttribute("projects", projectService.getProjectsByProjectOwner(user));
-
         return "security/dashboard";
     }
 }

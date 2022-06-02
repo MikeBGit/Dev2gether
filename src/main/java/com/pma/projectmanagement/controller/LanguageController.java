@@ -23,7 +23,6 @@ public class LanguageController {
         List<Language> languages = languageRepository.findAll();
         model.addAttribute("languages", languages);
         return "languages/list-languages";
-
     }
 
     @GetMapping("/new")
